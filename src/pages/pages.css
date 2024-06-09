@@ -1,0 +1,18 @@
+.page_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;  
+}
+.title_page {
+  height: 80px;
+  border-bottom: 2px solid #D2DBDE;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page__content {
+  margin-top: 40px;
+  width: 60vw;
+}

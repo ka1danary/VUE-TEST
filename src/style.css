@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color:  #F2FAFE;
+    color : #2F2F2F;
+    font-family: Play;
+    font-size: 1em;
+    
+}
+.title {
+    font-size: 2em;
+    font-weight: 600;
+}
+::selection {
+    background-color: #CFE0E9;
+}
+
+body::-webkit-scrollbar {
+    width: 15px;
+    
+}
+body::-webkit-scrollbar-track {
+    background-color: #EDECE9;
+}
+body::-webkit-scrollbar-thumb{
+    background-color: #D3D1CB;
+    
+}

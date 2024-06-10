@@ -1,24 +1,16 @@
 <template>
   <div class="field">
-
-    <div class="name">
+    <div class="item name">
       <div class="icon">
         <strong> {{ icon }}</strong>
       </div>
-      <div class="item">{{ name }}</div>
+      <div class="text">{{ name }}</div>
     </div>
-
     <div class="item">{{ value }}</div>
-
     <div class="item">{{ date }}</div>
-
-    <div class="right__field_btn">
-      <div>
-        <img src="../../icons/reload-icons/update-val-off.svg" alt="reload" />
-      </div>
-      <div>
-        <img src="../../icons/copy/content-copy-off.svg" alt="copy" />
-      </div>
+    <div class="item right__field_btn">
+      <img src="../../icons/reload-icons/update-val-off.svg" alt="reload" class="button" />
+      <img src="../../icons/copy/content-copy-off.svg" alt="copy" class="button" />
     </div>
   </div>
 </template>
@@ -48,17 +40,18 @@ const props = defineProps({
 
 <style scoped>
 .field {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: center;
-  justify-content: space-around;
   background: white;
   height: 48px;
   color: #121212;
   border-radius: 20px;
   box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
-  padding-left: 70px;
-  padding-right: 70px;
+  padding: 0 30px;
+  margin: 10px 0;
 }
+
 img {
   cursor: pointer;
 }
@@ -67,22 +60,33 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  min-width: 70px;
   user-select: none;
-}
-.name {
-  display: flex;
-  justify-content: space-between;
-  
-}
-.icon {
-  color: #2979ff;
+  width: 100px;
 }
 
-.item {
-  width: 30%;
+.name {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.icon {
+  color: #2979ff;
+  margin-right: 10px;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.button:hover {
+  transform: scale(1.03);
+  background-color: #EAEFF1;
+  border-radius: 10px;
 }
 </style>

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { onMounted, ref, watch } from "vue";
 import allApiFunctions from "@/API/valueService";
+import { buildCurrenceObject } from "@/helpers/copyInfoAboutCurrence";
 
 export const useValueStore = defineStore('valuesStore', () => {
 
@@ -8,8 +9,9 @@ export const useValueStore = defineStore('valuesStore', () => {
   let allValuesOfCurrecies = ref({});
   let allInfoAboutValues = ref([]);
   let isCurrencuesLoading = ref(false);
-  
 
+
+  // функция с запросом на получение данных по цене валют
   const getAllValuesOfCurrecies = async () => {
     try {
       allValuesOfCurrecies.value = await allApiFunctions.getAllLatestValueOfCurrencies()
@@ -21,12 +23,15 @@ export const useValueStore = defineStore('valuesStore', () => {
       console.error('Error fetching all values:', error);
     }
   };
+  
 
+  // все названия валют, для удобства
   const getAllKeysFromValuesOfCurrencies = () => {
     allKeysOfCurrencies.value = Object.keys(allValuesOfCurrecies.value);
     console.log('Keys ', allKeysOfCurrencies.value);
   };
 
+  // получение всех данных касаемо конкретной валюты 
   const getAllInfoOfCurrencies = async () => {
     try {
       isCurrencuesLoading.value = false;
@@ -42,13 +47,14 @@ export const useValueStore = defineStore('valuesStore', () => {
     }
   };
 
-  watch(allValuesOfCurrecies, async (newVal, oldVal) => {
-    if (Object.keys(newVal).length !== 0) {
-      await getAllKeysFromValuesOfCurrencies();
-      await getAllInfoOfCurrencies();
-      console.log('Observer work');
-    }
-  });
+
+  // watch(allValuesOfCurrecies, async (newVal, oldVal) => {
+  //   if (Object.keys(newVal).length !== 0) {
+  //     await getAllKeysFromValuesOfCurrencies();
+  //     await getAllInfoOfCurrencies();
+  //     console.log('Observer work');
+  //   }
+  // });
 
 
   return {

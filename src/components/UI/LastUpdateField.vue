@@ -26,7 +26,7 @@ export default {
 .last__update_field__time {
   background: #f2fafe;
   font-weight: 600;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
   width: 160px;
   margin-left: 10px;

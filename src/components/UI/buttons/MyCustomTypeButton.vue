@@ -48,6 +48,7 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
+    background: white;
   }
   </style>
   

@@ -7,6 +7,7 @@
             <my-route-button typeIcon="home" :status="headerStore.homeIcon" />
           </div>
         </router-link>
+        
         <router-link to="/settings">
           <my-route-button
             typeIcon="settings"

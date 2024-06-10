@@ -2,28 +2,29 @@
   <div class="main">
     <MyHeader />
     <div class="content">
-      <router-view /> 
+     
+        <router-view />
+        
+        
     </div>
   </div>
 </template>
 
 <script setup>
-
 import MyHeader from "./components/header/MyHeader.vue";
+
 
 // onMounted(() => {
 //   getAllValues()
 // });
 
 const currencyObject = {
-		id : '1',
-		code : '$',
-		name : 'USD',
-		value : 3.123,
-		lastUpdate : 'Date Object in String'
-	}
-
-
+  id: "1",
+  code: "$",
+  name: "USD",
+  value: 3.123,
+  lastUpdate: "Date Object in String",
+};
 </script>
 
 <style scoped>

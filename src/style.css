@@ -1,28 +1,26 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-color:  #F2FAFE;
-    color : #2F2F2F;
-    font-family: Play;
-    font-size: 1em;
-    
+  margin: 0;
+  padding: 0;
+  background-color: #f2fafe;
+  color: #2f2f2f;
+  font-family: Play;
+  font-size: 1em;
 }
 .title {
-    font-size: 2em;
-    font-weight: 600;
+  font-size: 2em;
+  font-weight: 600;
 }
 ::selection {
-    background-color: #CFE0E9;
+  background-color: #cfe0e9;
 }
 
 body::-webkit-scrollbar {
-    width: 15px;
-    
+  width: 15px;
 }
 body::-webkit-scrollbar-track {
-    background-color: #EDECE9;
+  background: rgb(207, 224, 233);
 }
-body::-webkit-scrollbar-thumb{
-    background-color: #D3D1CB;
-    
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgb(89, 187, 228);
 }

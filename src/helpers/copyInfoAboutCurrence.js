@@ -10,13 +10,13 @@ export const copyCurrence = async (currenceObject) => {
         })
 }
 
-export const buildCurrenceObject = (id, code, name, value, lastUpdate) => {
+export const buildCurrenceObject = (code, name, value, lastUpdate) => {
     const templateObject = {
-        id : id, 
-        code : code,
-        name : name,
-        value : value,
-        lastUpdate : lastUpdate
+
+        code: code,
+        name: name,
+        value: value,
+        lastUpdate: lastUpdate
     }
     return templateObject
 }

@@ -13,7 +13,6 @@
 <script setup>
 import MyHeader from "./components/header/MyHeader.vue";
 
-
 // onMounted(() => {
 //   getAllValues()
 // });

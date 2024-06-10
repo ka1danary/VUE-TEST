@@ -64,7 +64,13 @@
     font-weight: 600;
     padding: 5px;
     text-align: center;
-    font-size: 1em; 
+    font-size: 1em;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  
+  .time__field:focus {
+    border-color: #a4c4d1; 
   }
   </style>
   

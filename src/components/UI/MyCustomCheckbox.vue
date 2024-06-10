@@ -38,6 +38,7 @@ const toggle = () => {
   height: 30px;
   background: #e9eef1;
   border-radius: 30px;
+  border: 1px solid #e4e4e4;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -54,5 +55,6 @@ const toggle = () => {
 .toggle-on {
   transform: translateX(25px);
   background: #0096d5;
+  
 }
 </style>

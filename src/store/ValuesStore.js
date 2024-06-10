@@ -23,7 +23,7 @@ export const useValueStore = defineStore('valuesStore', () => {
       console.error('Error fetching all values:', error);
     }
   };
-  
+
 
   // все названия валют, для удобства
   const getAllKeysFromValuesOfCurrencies = () => {
@@ -55,6 +55,11 @@ export const useValueStore = defineStore('valuesStore', () => {
   //     console.log('Observer work');
   //   }
   // });
+
+  onMounted(() => {
+    getAllInfoOfCurrencies()
+    getAllInfoOfCurrencies()
+  })
 
 
   return {

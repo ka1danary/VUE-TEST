@@ -11,6 +11,7 @@ export const useHeaderStore = defineStore('headerStore', () => {
         homeIcon.value = true
         settingsIcon.value = false
     }
+
     const setStateTrueForSettings = () => {
         settingsIcon.value = true
         homeIcon.value = false
@@ -24,15 +25,4 @@ export const useHeaderStore = defineStore('headerStore', () => {
         setStateTrueForSettings
     }
 
-})
-
-export const counter = defineStore('counter', () => {
-    let number = ref(0)
-    const increment = () => {
-        number.value += 1
-    }
-
-    return {
-        number, increment
-    }
 })

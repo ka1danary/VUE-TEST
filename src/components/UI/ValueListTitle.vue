@@ -31,6 +31,9 @@
         background: white;
     }
     .item {
-        
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>

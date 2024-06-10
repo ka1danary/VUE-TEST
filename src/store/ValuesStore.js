@@ -3,58 +3,60 @@ import { onMounted, ref, watch } from "vue";
 import allApiFunctions from "@/API/valueService";
 
 export const useValueStore = defineStore('valuesStore', () => {
-  let allKeys = ref([]);
-  let allValues = ref({});
-  let allInfoAboutValues = ref([]);
-  let isValLoading = ref(false);
 
-  const getAllValues = async () => {
+  let allKeysOfCurrencies = ref([]);
+  let allValuesOfCurrecies = ref({});
+  let allInfoAboutValues = ref([]);
+  let isCurrencuesLoading = ref(false);
+  
+
+  const getAllValuesOfCurrecies = async () => {
     try {
-      allValues.value = await allApiFunctions.getAllLatestValueOfCurrencies()
+      allValuesOfCurrecies.value = await allApiFunctions.getAllLatestValueOfCurrencies()
         .then((responce) => { return responce })
         .catch((error) => { throw error })
-        
-      console.log('Price ', allValues.value);
+
+      console.log('Price ', allValuesOfCurrecies.value);
     } catch (error) {
       console.error('Error fetching all values:', error);
     }
   };
 
-  const getAllKeysList = () => {
-    allKeys.value = Object.keys(allValues.value);
-    console.log('Keys ', allKeys.value);
+  const getAllKeysFromValuesOfCurrencies = () => {
+    allKeysOfCurrencies.value = Object.keys(allValuesOfCurrecies.value);
+    console.log('Keys ', allKeysOfCurrencies.value);
   };
 
-  const getAllInfoAboutValues = async () => {
+  const getAllInfoOfCurrencies = async () => {
     try {
-      isValLoading.value = false;
+      isCurrencuesLoading.value = false;
       const response = await allApiFunctions.getAllInfoAboutValuesOfCurrencies()
         .then((response) => { return response })
         .catch((error) => { throw error })
 
       allInfoAboutValues.value = response.data;
       console.log('info ', allInfoAboutValues.value);
-      isValLoading.value = true;
+      isCurrencuesLoading.value = true;
     } catch (error) {
       console.error('Error fetching all info about values:', error);
     }
   };
 
-  watch(allValues, async (newVal, oldVal) => {
+  watch(allValuesOfCurrecies, async (newVal, oldVal) => {
     if (Object.keys(newVal).length !== 0) {
-      await getAllKeysList();
-      await getAllInfoAboutValues();
+      await getAllKeysFromValuesOfCurrencies();
+      await getAllInfoOfCurrencies();
       console.log('Observer work');
     }
   });
 
-  
+
   return {
-    allKeys,
-    allValues,
-    getAllValues,
-    getAllInfoAboutValues,
+    allKeysOfCurrencies,
+    allValuesOfCurrecies,
+    getAllValuesOfCurrecies,
+    getAllInfoOfCurrencies,
     allInfoAboutValues,
-    isValLoading
+    isCurrencuesLoading
   };
 });

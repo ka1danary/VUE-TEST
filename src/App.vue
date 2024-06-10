@@ -8,20 +8,21 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+
 import MyHeader from "./components/header/MyHeader.vue";
-import { useValueStore } from "./store/ValuesStore";
-import { useHeaderStore } from "@/store/HeaderStore";
-import {counter} from '@/store/HeaderStore'
-import popUpWindow from "./components/UI/popUpWindow.vue";
-import MyRadioCheckbox from '@/components/UI/MyRadioCheckbox.vue'
-
-
-
 
 // onMounted(() => {
 //   getAllValues()
 // });
+
+const currencyObject = {
+		id : '1',
+		code : '$',
+		name : 'USD',
+		value : 3.123,
+		lastUpdate : 'Date Object in String'
+	}
+
 
 </script>
 

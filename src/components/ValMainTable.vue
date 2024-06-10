@@ -16,11 +16,7 @@
 import { ref, onMounted } from 'vue';
 import ValueListTitle from '@/components/UI/ValueListTitle.vue';
 import ValueField from '@/components/UI/ValueField.vue';
-import { useValueStore } from '@/store/ValuesStore';
-import allApiFunctions from '@/API/valueService';
 
-const store = useValueStore();
-const allInfoAboutValues = ref([]);
 
 
 </script>

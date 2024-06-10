@@ -1,6 +1,6 @@
 <template>
     <div class='page_container'>
-        <div>
+        <div class="page__content">
             <div class="title">
                 Настройки
             </div>

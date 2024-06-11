@@ -12,7 +12,7 @@
           <settings-currencies-select />
         </div>
       </div>
-      <div>
+      <div >
         <div>
           <settings-time />
         </div>
@@ -25,11 +25,17 @@
   </div>
 </template>
 <script setup>
+
 import "./pages.css";
 import SettingsTime from "@/components/SettingsTime.vue";
 import SettingsCurrenciesSelect from "@/components/SettingsCurrenciesSelect.vue";
 import MyCustomTypeButton from "@/components/UI/buttons/MyCustomTypeButton.vue";
+import { ref } from "vue";
 name: "settings-page";
+
+const isToggle = ref(false)
+
+
 </script>
 <style scoped>
 .text__block {

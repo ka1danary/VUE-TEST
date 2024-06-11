@@ -49,7 +49,8 @@ export const useValueStore = defineStore('valuesStore', () => {
           code: info.symbol,
           name: currencyCode,
           value: value,
-          lastUpdate: new Date().toISOString()
+          lastUpdate: new Date().toISOString(),
+          isActive : true
         };
       } else {
         console.warn(`Отсутствуют данные для валюты: ${currencyCode}`);

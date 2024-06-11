@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="list__values">
-      <div class="item">
+      <div class="item" v-for="(currency, index) in allCurrence" :key="index">
         <div class="name">
-          <div style="color: #0096d5">$</div>
-          <div>USD</div>
+          <div style="color: #0096d5">{{ currency.code }}</div>
+          <div>{{ currency.name }}</div>
         </div>
         <div class="select">
-          <my-radio-checkbox />
+          <my-radio-checkbox :isActive="currency.isActive" />
         </div>
       </div>
     </div>
@@ -16,6 +16,15 @@
 
 <script setup>
 import MyRadioCheckbox from "./UI/MyRadioCheckbox.vue";
+import { computed } from "vue";
+import { useValueStore } from "@/store/ValuesStore";
+
+const store = useValueStore();
+
+const loadingCurrenceInfo = computed(() => store.isCurrencuesLoading);
+const allCurrence = computed(
+  () => store.arrayReadyAssembleObjectWithCurrencies
+);
 </script>
 <style scoped>
 .container {
@@ -46,13 +55,15 @@ import MyRadioCheckbox from "./UI/MyRadioCheckbox.vue";
   align-items: center;
   justify-content: space-between;
   padding: 15px;
+  margin-bottom: 10px;
 }
 .name {
   display: flex;
-  width: 50px;
   align-items: center;
-  justify-content: space-between;
   font-weight: 600;
+}
+.name > div {
+  margin-right: 10px;
 }
 .select {
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="field">
-    <div class="item name">
+    <div class="item__name">
       <div class="icon">
         <strong> {{ icon }}</strong>
       </div>
@@ -90,5 +90,12 @@ img {
   transform: scale(1.03);
   background-color: #EAEFF1;
   border-radius: 10px;
+}
+
+.item__name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70px;
 }
 </style>

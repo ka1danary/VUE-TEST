@@ -47,7 +47,7 @@ const toggle = () => {
 .toggle-circle {
   width: 24px;
   height: 24px;
-  background: #a9aeb1;
+  background: #8a8a8a;
   border-radius: 50%;
   margin: 3px;
   transition: transform 0.3s, background-color 0.3s;

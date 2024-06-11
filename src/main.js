@@ -13,6 +13,11 @@ components.forEach(component => {
     app.component(component.name, component);
 });
 
+const storedRoute = localStorage.getItem('activePage');
+if (storedRoute && storedRoute !== '/') {
+  router.push(storedRoute).catch(() => {});
+}
+
 app.use(router);
 
 const pinia = createPinia();

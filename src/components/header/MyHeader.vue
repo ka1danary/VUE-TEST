@@ -17,9 +17,9 @@
         </router-link>
         <my-button-alert :status="alertIcon" />
       </div>
-      <div class="header__right__menu" @click="getAllValues">
+      <div class="header__right__menu" @click="helperReload">
         <last-update-field />
-        <div @click="valueStore.getAllValues">
+        <div>
           <my-button-reload />
         </div>
       </div>
@@ -30,12 +30,16 @@
 <script setup>
 import { useValueStore } from "@/store/ValuesStore";
 import { useHeaderStore } from "@/store/HeaderStore";
-import { defineProps } from "vue";
+import { computed } from "vue";
 import MyRouteButton from "../UI/buttons/MyRouteButton.vue";
 
 const headerStore = useHeaderStore();
 const valueStore = useValueStore();
 
+const helperReload = async () => {
+  await valueStore.buildFullArrayOfCurrience();
+  console.log('Update');
+}
 </script>
 
 <style scoped>
@@ -52,7 +56,6 @@ const valueStore = useValueStore();
 }
 .header__left__menu {
   display: flex;
-
   justify-content: space-around;
   width: 200px;
   margin-left: 20px;
@@ -60,7 +63,6 @@ const valueStore = useValueStore();
 
 .header__right__menu {
   display: flex;
-
   justify-content: right;
   width: 350px;
   margin-right: 10px;

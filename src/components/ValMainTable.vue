@@ -3,11 +3,14 @@
     <div>
       <div><value-list-title /></div>
       <div class="value__container">
-        <div class="value__list">
-          <!-- <value-field v-for="(val, index) in allInfoAboutValues" :key="index" :name="val.name" :icon="val.icon"/> -->
-          <div>
-            <value-field />
+        <div class="value__list" v-if="!loadingCurrenceInfo">
+          <div v-for="(currence, index) in allCurrence" :key="index">
+            <value-field :icon="currence.code" :name="currence.name" :value="currence.value" :date="currence.lastUpdate" />
           </div>
+        </div>
+        <div v-else class="loading">
+          
+          <my-loader/>
         </div>
       </div>
     </div>
@@ -15,9 +18,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { computed } from "vue";
 import ValueListTitle from "@/components/UI/ValueListTitle.vue";
 import ValueField from "@/components/UI/ValueField.vue";
+import { useValueStore } from "@/store/ValuesStore";
+import MyLoader from "@/components/UI/MyLoader.vue";
+
+const store = useValueStore();
+
+const loadingCurrenceInfo = computed(() => store.isCurrencuesLoading);
+const allCurrence = computed(() => store.arrayReadyAssembleObjectWithCurrencies);
 </script>
 
 <style scoped>
@@ -30,7 +40,7 @@ import ValueField from "@/components/UI/ValueField.vue";
   justify-content: center;
 }
 .value__list {
-  height: 400px;
+  height: 500px;
   padding: 30px;
   width: 100vw;
   overflow-y: scroll;
@@ -44,5 +54,11 @@ import ValueField from "@/components/UI/ValueField.vue";
 .value__list::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: rgb(89, 187, 228);
+}
+.loading {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

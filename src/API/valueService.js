@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'ffca_live_u8XgZNsdhaDUHXJiAZg38sEXPltUFz0i3LkSup58';
+const API_KEY = 'fca_live_u8XgZNsdhaDUHXJiAZg38sEXPltUFz0i3LkSup58';
 const BASE_URL = 'https://api.freecurrencyapi.com/v1';
 
 const URL_LATEST = `${BASE_URL}/latest?apikey=${API_KEY}`;

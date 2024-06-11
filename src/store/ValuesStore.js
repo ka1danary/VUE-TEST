@@ -1,66 +1,69 @@
 import { defineStore } from "pinia";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import allApiFunctions from "@/API/valueService";
-import { buildCurrenceObject } from "@/helpers/copyInfoAboutCurrence";
 
 export const useValueStore = defineStore('valuesStore', () => {
-
   let allKeysOfCurrencies = ref([]);
   let allValuesOfCurrecies = ref({});
   let allInfoAboutValues = ref([]);
+
+  let arrayReadyAssembleObjectWithCurrencies = ref([]);
   let isCurrencuesLoading = ref(false);
 
 
-  // функция с запросом на получение данных по цене валют
   const getAllValuesOfCurrecies = async () => {
     try {
-      allValuesOfCurrecies.value = await allApiFunctions.getAllLatestValueOfCurrencies()
-        .then((responce) => { return responce })
-        .catch((error) => { throw error })
-
+      const response = await allApiFunctions.getAllLatestValueOfCurrencies();
+      allValuesOfCurrecies.value = response.data;
       console.log('Price ', allValuesOfCurrecies.value);
     } catch (error) {
       console.error('Error fetching all values:', error);
     }
   };
 
-
-  // все названия валют, для удобства
-  const getAllKeysFromValuesOfCurrencies = () => {
-    allKeysOfCurrencies.value = Object.keys(allValuesOfCurrecies.value);
-    console.log('Keys ', allKeysOfCurrencies.value);
-  };
-
-  // получение всех данных касаемо конкретной валюты 
   const getAllInfoOfCurrencies = async () => {
     try {
-      isCurrencuesLoading.value = false;
-      const response = await allApiFunctions.getAllInfoAboutValuesOfCurrencies()
-        .then((response) => { return response })
-        .catch((error) => { throw error })
-
+      const response = await allApiFunctions.getAllInfoAboutValuesOfCurrencies();
       allInfoAboutValues.value = response.data;
       console.log('info ', allInfoAboutValues.value);
-      isCurrencuesLoading.value = true;
     } catch (error) {
       console.error('Error fetching all info about values:', error);
     }
   };
 
+  const buildFullArrayOfCurrience = async () => {
+    isCurrencuesLoading.value = true;
 
-  // watch(allValuesOfCurrecies, async (newVal, oldVal) => {
-  //   if (Object.keys(newVal).length !== 0) {
-  //     await getAllKeysFromValuesOfCurrencies();
-  //     await getAllInfoOfCurrencies();
-  //     console.log('Observer work');
-  //   }
-  // });
+    await getAllValuesOfCurrecies();
+    await getAllInfoOfCurrencies();
+
+    allKeysOfCurrencies.value = Object.keys(allValuesOfCurrecies.value);
+
+    arrayReadyAssembleObjectWithCurrencies.value = allKeysOfCurrencies.value.map((currencyCode) => {
+      const info = allInfoAboutValues.value[currencyCode];
+      const value = allValuesOfCurrecies.value[currencyCode];
+
+
+      if (info && value) {
+        return {
+          code: info.symbol,
+          name: currencyCode,
+          value: value,
+          lastUpdate: new Date().toISOString()
+        };
+      } else {
+        console.warn(`Отсутствуют данные для валюты: ${currencyCode}`);
+        return null;
+      }
+    }).filter(currency => currency !== null); // Удаление null значений
+
+    console.log('Final Array: ', arrayReadyAssembleObjectWithCurrencies.value);
+    isCurrencuesLoading.value = false;
+  };
 
   onMounted(() => {
-    getAllInfoOfCurrencies()
-    getAllInfoOfCurrencies()
-  })
-
+    buildFullArrayOfCurrience();
+  });
 
   return {
     allKeysOfCurrencies,
@@ -68,6 +71,8 @@ export const useValueStore = defineStore('valuesStore', () => {
     getAllValuesOfCurrecies,
     getAllInfoOfCurrencies,
     allInfoAboutValues,
-    isCurrencuesLoading
+    isCurrencuesLoading,
+    arrayReadyAssembleObjectWithCurrencies,
+    buildFullArrayOfCurrience
   };
 });

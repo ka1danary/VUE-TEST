@@ -4,7 +4,9 @@
       <div class="icon">
         <strong> {{ icon }}</strong>
       </div>
-      <div class="text">{{ name }}</div>
+      <div class="text">
+        <strong>{{ name }}</strong>
+      </div>
     </div>
     <div class="item">{{ value }}</div>
     <div class="item">{{ date }}</div>

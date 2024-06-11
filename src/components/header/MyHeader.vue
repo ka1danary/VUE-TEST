@@ -17,9 +17,9 @@
         </router-link>
         <my-button-alert :status="alertIcon" />
       </div>
-      <div class="header__right__menu" @click="helperReload">
+      <div class="header__right__menu" >
         <last-update-field />
-        <div>
+        <div @click="helperReload">
           <my-button-reload />
         </div>
       </div>

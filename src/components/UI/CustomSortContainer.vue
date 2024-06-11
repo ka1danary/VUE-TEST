@@ -29,7 +29,7 @@
   import { ref, onMounted, onUnmounted } from 'vue';
   
   const isOpen = ref(false);
-  const selectedOption = ref('ascending');
+  const selectedOption = ref('');
   const dropdown = ref(null);
   
   const toggleDropdown = () => {
@@ -86,23 +86,25 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    background-color: #0096d5;
-    margin-top: 5px;
+    background-color: #ffffff;
+    margin-top: 10px;
     border-radius: 10px;
     box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
     overflow: hidden;
     width: 200px;
+    
   }
   
   .dropdown__item {
     padding: 10px;
     cursor: pointer;
-    color: white;
+    color : black;
+    border-bottom: 1px solid #f0f0f0;
   }
   
   .dropdown__item:hover,
   .dropdown__item.selected {
-    background-color: #007bb3;
+    background-color: #dce7ec;
   }
   </style>
   

@@ -96,6 +96,6 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 70px;
+  width: 90px;
 }
 </style>

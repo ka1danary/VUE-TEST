@@ -15,6 +15,10 @@ yarn serve
 yarn build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# VUE-TEST
+### Использование технологий из технического задания 
+
+SeesionStorage был использован в компоненте HeaderStore для хранения состояния иконок у header  в течении 1 активно сессии.
+
+LocaleStorage был использован в компонентах AutoUpdate для хранения времени и количество прошедшего времения для  автоматического обновления данных.
+
+Также LocaleStorage был использован в ValueStore для хранения данных о валютах.

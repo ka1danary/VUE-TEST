@@ -12,12 +12,14 @@
           <settings-currencies-select />
         </div>
       </div>
-      <div >
+      <div>
         <div>
           <settings-time />
         </div>
         <div class="btns">
-          <my-custom-type-button widthButton="200px" typeButton="reject" />
+          <router-link to="/" style="text-decoration: none;">
+            <my-custom-type-button widthButton="200px" typeButton="reject" @click="store.setStateTrueForHome"/>
+          </router-link>
           <my-custom-type-button widthButton="200px" />
         </div>
       </div>
@@ -25,15 +27,18 @@
   </div>
 </template>
 <script setup>
-
 import "./pages.css";
 import SettingsTime from "@/components/SettingsTime.vue";
 import SettingsCurrenciesSelect from "@/components/SettingsCurrenciesSelect.vue";
 import MyCustomTypeButton from "@/components/UI/buttons/MyCustomTypeButton.vue";
 import { ref } from "vue";
+import { useHeaderStore } from "@/store/HeaderStore";
+
 name: "settings-page";
 
-const isToggle = ref(false)
+const store = useHeaderStore()
+
+
 
 
 </script>
@@ -44,9 +49,9 @@ const isToggle = ref(false)
   align-items: center;
 }
 .btns {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
 }
 </style>

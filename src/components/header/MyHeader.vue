@@ -18,7 +18,7 @@
         <my-button-alert :status="alertIcon" />
       </div>
       <div class="header__right__menu" >
-        <last-update-field />
+        <last-update-field :date="valueStore.lastUpdateAll" />
         <div @click="helperReload">
           <my-button-reload />
         </div>
@@ -32,14 +32,18 @@ import { useValueStore } from "@/store/ValuesStore";
 import { useHeaderStore } from "@/store/HeaderStore";
 import { computed } from "vue";
 import MyRouteButton from "../UI/buttons/MyRouteButton.vue";
+import LastUpdateField from "../UI/LastUpdateField.vue";
 
 const headerStore = useHeaderStore();
 const valueStore = useValueStore();
 
 const helperReload = async () => {
   await valueStore.buildFullArrayOfCurrience();
+
   console.log('Update');
 }
+
+
 </script>
 
 <style scoped>

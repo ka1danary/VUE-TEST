@@ -1,21 +1,33 @@
 <template>
   <div class="last__update__field">
     <div class="update__title">Последнее обновление:</div>
-    <div class="last__update_field__time">22.02.2024 15:00</div>
+    <div class="last__update_field__time">{{ parsedDate.day }}.{{ parsedDate.month }} {{ parsedDate.hours }}:{{ parsedDate.minutes }}</div>
   </div>
 </template>
-<script>
 
-export default {
-  name: "last-update-field",
-};
+<script setup>
+import { defineProps } from "vue";
+import { parseDate } from "@/helpers/copyInfoAboutCurrence";
+import { computed } from "vue";
+
+
+const props = defineProps({
+  date: {
+    type: String,
+    default : '123'
+  }
+});
+
+const parsedDate = computed(() => {
+  return parseDate(props.date);
+});
 
 </script>
+
 <style scoped>
 .last__update__field {
   display: flex;
   align-items: center;
-  
 }
 .update__title {
   color: white;
@@ -36,6 +48,6 @@ export default {
   user-select: all;
 }
 .last__update_field__time::selection {
-  background-color: #CFE0E9;
+  background-color: #cfe0e9;
 }
 </style>

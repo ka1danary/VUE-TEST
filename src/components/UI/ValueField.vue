@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="field">
-      <div class="conainer__field" v-if="!loading">
+      <div class="container__field" v-if="!loading">
         <div class="item__name">
           <div class="icon">
             <strong> {{ icon }}</strong>
@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="item">{{ value }}</div>
-        <div class="item">{{ date }}</div>
+        <div class="item">{{ parsedDate.day }}.{{ parsedDate.month }}  {{ parsedDate.hours }}:{{ parsedDate.minutes }}</div>
         <div class="item right__field_btn">
           <img
             src="../../icons/reload-icons/update-val-off.svg"
@@ -37,10 +37,10 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue";
+import { computed, defineProps, ref } from "vue";
 import { useValueStore } from "@/store/ValuesStore";
 import MyLoader from "./MyLoader.vue";
-import { copyCurrence } from "@/helpers/copyInfoAboutCurrence";
+import { copyCurrence, parseDate } from "@/helpers/copyInfoAboutCurrence";
 
 const props = defineProps({
   icon: {
@@ -57,13 +57,12 @@ const props = defineProps({
   },
   date: {
     type: String,
-    default: new Date(),
+    default: new Date().toISOString(),
   },
 });
 
 const store = useValueStore();
 const loading = ref(false);
-
 const copy = ref(false);
 
 const helperUpdate = async (name) => {
@@ -74,12 +73,13 @@ const helperUpdate = async (name) => {
 };
 
 const helperCopy = () => {
-  copyCurrence({
-    code: props.code,
+  const currenceObject = {
+    code: props.icon,
     name: props.name,
-    currenceValue: props.value,
-    lastUpdateValue: props.date,
-  });
+    value: props.value,
+    lastUpdate: props.date,
+  };
+  copyCurrence(currenceObject);
 
   copy.value = true;
 
@@ -87,6 +87,11 @@ const helperCopy = () => {
     copy.value = false;
   }, 2000);
 };
+
+const parsedDate = computed(() => {
+  return parseDate(props.date);
+});
+
 </script>
 
 <style scoped>
@@ -100,7 +105,7 @@ const helperCopy = () => {
   margin: 10px 0;
 }
 
-.conainer__field {
+.container__field {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: center;

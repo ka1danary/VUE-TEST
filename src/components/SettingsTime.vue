@@ -75,7 +75,8 @@ const handleInput = (event) => {
 }
 
 .disable {
-  opacity: 0.4; /* Уменьшение прозрачности */
-  pointer-events: none; /* Отключение взаимодействия */
+  opacity: 0.4; 
+  pointer-events: none; 
+  user-select: none;
 }
 </style>

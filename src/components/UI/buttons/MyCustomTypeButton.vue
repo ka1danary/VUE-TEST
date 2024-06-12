@@ -35,8 +35,9 @@ const props = defineProps({
   align-items: center;
   display: flex;
   padding: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: border 0.3s ease, color 0.3s ease;
   cursor: pointer;
+ 
 }
 
 .confirm {
@@ -46,16 +47,18 @@ const props = defineProps({
 
 .reject {
   background: white;
+  border: 1px solid white;
   color: black;
+ 
 }
 
 .confirm:hover {
   background: rgb(0, 130, 190);
-  color: #fff;
+  
 }
 
 .reject:hover {
-  background: rgb(241, 241, 241);
-  color: #000;
+  border: 1px solid #a4c4d1;
+  
 }
 </style>

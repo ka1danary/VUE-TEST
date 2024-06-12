@@ -11,6 +11,8 @@ export const useValueStore = defineStore('valuesStore', () => {
   let isCurrencuesLoading = ref(false);
   let isCurrencyLoading = ref(false)
 
+  let lastUpdateAll = ref(new Date())
+
   const getAllValuesOfCurrecies = async () => {
     try {
       const response = await allApiFunctions.getAllLatestValueOfCurrencies();
@@ -58,6 +60,7 @@ export const useValueStore = defineStore('valuesStore', () => {
     }).filter(currency => currency !== null);
 
     console.log('Final Array: ', arrayReadyAssembleObjectWithCurrencies.value);
+    lastUpdateAll.value = new Date()
     isCurrencuesLoading.value = false;
   };
 
@@ -99,6 +102,7 @@ export const useValueStore = defineStore('valuesStore', () => {
     arrayReadyAssembleObjectWithCurrencies,
     buildFullArrayOfCurrience,
     updateConcreteCurrency,
-    isCurrencyLoading
+    isCurrencyLoading,
+    lastUpdateAll
   };
 });

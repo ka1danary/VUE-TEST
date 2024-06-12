@@ -41,8 +41,7 @@ const allCurrence = computed(
   padding: 30px;
   overflow-y: scroll;
 }
-.list__values {
-}
+
 .container::-webkit-scrollbar {
   width: 15px;
 }
@@ -80,9 +79,6 @@ const allCurrence = computed(
 .name > div {
   margin-right: 10px;
   
-}
-.select {
-
 }
 
 .loading {

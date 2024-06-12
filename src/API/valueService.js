@@ -7,7 +7,6 @@ const URL_LATEST = `${BASE_URL}/latest?apikey=${API_KEY}`;
 const URL_CURRENCIES = `${BASE_URL}/currencies?apikey=${API_KEY}`;
 
 const allApiFunctions = {
-
   getAllLatestValueOfCurrencies() {
     return axios.get(URL_LATEST)
       .then((response) => {
@@ -28,7 +27,20 @@ const allApiFunctions = {
         console.log(error)
         throw error
     })
-  }
+  },
+
+  getInfoValueOfSpecificCurrency(name) {
+    const url = `${BASE_URL}/latest?apikey=${API_KEY}&currencies=${name}`;
+    return axios.get(url)
+    .then((response) => {
+      console.log('local ', response)
+      return response.data; 
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error; 
+    });
+  } 
 };
 
-export default allApiFunctions
+export default allApiFunctions;

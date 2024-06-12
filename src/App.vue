@@ -12,10 +12,8 @@
 
 <script setup>
 import MyHeader from "./components/header/MyHeader.vue";
+import allApiFunctions from "./API/valueService";
 
-// onMounted(() => {
-//   getAllValues()
-// });
 
 const currencyObject = {
   id: "1",
@@ -24,6 +22,10 @@ const currencyObject = {
   value: 3.123,
   lastUpdate: "Date Object in String",
 };
+
+
+
+
 </script>
 
 <style scoped>

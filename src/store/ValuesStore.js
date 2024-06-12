@@ -9,7 +9,7 @@ export const useValueStore = defineStore('valuesStore', () => {
 
   let arrayReadyAssembleObjectWithCurrencies = ref([]);
   let isCurrencuesLoading = ref(false);
-
+  let isCurrencyLoading = ref(false)
 
   const getAllValuesOfCurrecies = async () => {
     try {
@@ -43,23 +43,46 @@ export const useValueStore = defineStore('valuesStore', () => {
       const info = allInfoAboutValues.value[currencyCode];
       const value = allValuesOfCurrecies.value[currencyCode];
 
-
       if (info && value) {
         return {
           code: info.symbol,
           name: currencyCode,
           value: value,
           lastUpdate: new Date().toISOString(),
-          isActive : true
+          isActive: true
         };
       } else {
         console.warn(`Отсутствуют данные для валюты: ${currencyCode}`);
         return null;
       }
-    }).filter(currency => currency !== null); // Удаление null значений
+    }).filter(currency => currency !== null);
 
     console.log('Final Array: ', arrayReadyAssembleObjectWithCurrencies.value);
     isCurrencuesLoading.value = false;
+  };
+
+  const updateConcreteCurrency = async (name) => {
+    isCurrencyLoading.value = true
+    try {
+      const response = await allApiFunctions.getInfoValueOfSpecificCurrency(name);
+      const newValue = response.data[name];
+
+      arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
+        if (currency.name === name) {
+          return {
+            ...currency,
+            value: newValue,
+            lastUpdate: new Date().toISOString()
+          };
+        }
+        return currency;
+      });
+
+      console.log(`Updated currency ${name}: `, newValue);
+    } catch (error) {
+      console.error(`Error updating currency ${name}:`, error);
+    }
+    isCurrencyLoading.value = false
   };
 
   onMounted(() => {
@@ -74,6 +97,8 @@ export const useValueStore = defineStore('valuesStore', () => {
     allInfoAboutValues,
     isCurrencuesLoading,
     arrayReadyAssembleObjectWithCurrencies,
-    buildFullArrayOfCurrience
+    buildFullArrayOfCurrience,
+    updateConcreteCurrency,
+    isCurrencyLoading
   };
 });

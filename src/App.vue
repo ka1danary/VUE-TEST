@@ -13,18 +13,30 @@
 <script setup>
 import MyHeader from "./components/header/MyHeader.vue";
 import allApiFunctions from "./API/valueService";
+import { useValueStore } from "./store/ValuesStore";
+import { computed } from "vue";
+import { useAutoUpdateStore } from "./store/AutoUpdateStore";
 
+const store = useAutoUpdateStore()
 
-const currencyObject = {
-  id: "1",
-  code: "$",
-  name: "USD",
-  value: 3.123,
-  lastUpdate: "Date Object in String",
-};
+// const frequency = computed({
+//   get: () => updateStore.frequencyUpdateValue,
+//   set: (value) => {
+//     const sanitizedValue = parseInt(value, 10);
+//     updateStore.frequencyUpdateValue = isNaN(sanitizedValue) ? 0 : sanitizedValue;
+//   }
+// });
 
-
-
+const alertWindow = computed({
+  get : () => 
+    store.alertStatus,
+  
+  set : () => {
+    setTimeout(() => {
+      
+    }, 1000)
+  }
+})
 
 </script>
 

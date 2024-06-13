@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="list__values" v-if="!isLoading">
-      <div class="item" v-for="(currency, index) in allCurrence" :key="index">
+      <div class="item" v-for="(currency, index) in allCurrence" :key="index" :class="{ 'inactive': !currency.isActive }">
         <div class="name">
           <div style="color: #2979ff">{{ currency.code }}</div>
           <div>{{ currency.name }}</div>
@@ -12,27 +12,22 @@
       </div>
     </div>
     <div v-else class="loading">
-          
-      <my-loader/>
+      <my-loader />
     </div>
   </div>
 </template>
 
 <script setup>
 import MyRadioCheckbox from "./UI/MyRadioCheckbox.vue";
-import { computed } from "vue";
+import { computed,ref } from "vue";
 import { useValueStore } from "@/store/ValuesStore";
 import MyLoader from "./UI/MyLoader.vue";
 
 const store = useValueStore();
-
-const loadingCurrenceInfo = computed(() => store.isCurrencuesLoading);
 const isLoading = computed(() => store.isCurrencuesLoading)
-const allCurrence = computed(
-  () => store.arrayReadyAssembleObjectWithCurrencies
-);
-
+const allCurrence = computed(() => store.arrayReadyAssembleObjectWithCurrencies);
 </script>
+
 <style scoped>
 .container {
   background: rgb(234, 239, 241);
@@ -62,23 +57,16 @@ const allCurrence = computed(
   justify-content: space-between;
   padding: 0 30px;
   margin-bottom: 10px;
-  
 }
+
 .name {
   display: flex;
   align-items: center;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 90px;
 }
+
 .name > div {
   margin-right: 10px;
-  
 }
 
 .loading {
@@ -86,5 +74,9 @@ const allCurrence = computed(
   align-items: center;
   justify-content: center;
   height: 400px
+}
+
+.inactive {
+  opacity: 0.5; /* Пример полупрозрачности для неактивного элемента */
 }
 </style>

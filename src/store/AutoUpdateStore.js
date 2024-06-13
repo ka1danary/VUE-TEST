@@ -1,28 +1,52 @@
 import { defineStore } from "pinia";
-import { onMounted, ref, watch } from "vue";
+import { ref, watch } from "vue";
+import { useValueStore } from "./ValuesStore";
 
 export const useAutoUpdateStore = defineStore('alertStore', () => {
+    const frequencyUpdateValue = ref(30);
+    const autoUpdateMode = ref(true);
+    const alertStatus = ref(false);
+    const intervalId = ref(null);
 
-    const frequencyUpdateValue = ref(30)
-    const autoUpdateMode = ref(true)
-    const alertStatus = ref(false)
+    const currenceStore = useValueStore();
 
-    const autoUpdateCurrenciesValues = () => {
+    // помогает вызвать функцию обновления данных
+    const autoUpdateHelper = () => {
+        currenceStore.buildFullArrayOfCurrience();
+    };
 
-        if (alert) {
-            setTimeout(() => {
-
-            }, frequencyUpdateValue)
+    // начало автом обновления 
+    const startAutoUpdate = () => {
+        if (intervalId.value) {
+            clearInterval(intervalId.value);
         }
-        else {
-            console.log('Настройка автоматического обновления отключена пользователем')
+
+
+        if (autoUpdateMode.value && frequencyUpdateValue.value > 0) {
+            intervalId.value = setInterval(autoUpdateHelper, frequencyUpdateValue.value * 60000);
         }
-    }
+    };
+
+    const stopAutoUpdate = () => {
+        if (intervalId.value) {
+            clearInterval(intervalId.value);
+            intervalId.value = null;
+        }
+    };
+
+    watch([autoUpdateMode, frequencyUpdateValue], () => {
+        if (autoUpdateMode.value) {
+            startAutoUpdate();
+        } else {
+            stopAutoUpdate();
+        }
+    }, { immediate: true });
 
     return {
-        autoUpdateCurrenciesValues,
         frequencyUpdateValue,
-        alertStatus
-    }
-
-})
+        alertStatus,
+        autoUpdateMode,
+        startAutoUpdate,
+        stopAutoUpdate,
+    };
+});

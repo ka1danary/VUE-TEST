@@ -38,9 +38,6 @@ name: "settings-page";
 
 const store = useHeaderStore()
 
-
-
-
 </script>
 <style scoped>
 .text__block {

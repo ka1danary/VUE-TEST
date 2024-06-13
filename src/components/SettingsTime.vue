@@ -2,16 +2,16 @@
   <div class="container">
     <div class="auto__update__mode">
       Автоматическое обновление данных
-      <my-custom-checkbox style="margin-left: 30px" v-model="isToggle" />
+      <my-custom-checkbox style="margin-left: 30px" v-model="autoUpdateMode" />
     </div>
-    <div class="frequency__user__field" :class="{ disable: !isToggle }">
+    <div class="frequency__user__field" :class="{ disable: !autoUpdateMode }">
       <div>Частота обновления:</div>
       <input
         style="margin-left: 30px"
         class="time__field"
-        v-model="inputValue"
+        v-model="frequency"
         @input="handleInput"
-        :disabled="!isToggle"
+        :disabled="!autoUpdateMode"
         maxlength="4"
       />
       <div style="margin-left: 30px">мин.</div>
@@ -20,16 +20,29 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import MyCustomCheckbox from "@/components/UI/MyCustomCheckbox.vue"; // Убедитесь, что путь к компоненту правильный
+import { ref, computed } from "vue";
+import { useAutoUpdateStore } from "@/store/AutoUpdateStore";
+import MyCustomCheckbox from "@/components/UI/MyCustomCheckbox.vue";
 
-const inputValue = ref("");
-const isToggle = ref(false);
+const updateStore = useAutoUpdateStore();
+
+// Обновляет значение в store
+const autoUpdateMode = computed({
+  get: () => updateStore.autoUpdateMode,
+  set: (value) => (updateStore.autoUpdateMode = value),
+});
+
+const frequency = computed({
+  get: () => updateStore.frequencyUpdateValue,
+  set: (value) => {
+    const sanitizedValue = parseInt(value, 10);
+    updateStore.frequencyUpdateValue = isNaN(sanitizedValue) ? 0 : sanitizedValue;
+  }
+});
 
 const handleInput = (event) => {
-  // Оставляем только цифры и ограничиваем длину до 4 символов
   const value = event.target.value.replace(/\D/g, "").slice(0, 4);
-  inputValue.value = value;
+  frequency.value = value;
 };
 </script>
 
@@ -75,8 +88,8 @@ const handleInput = (event) => {
 }
 
 .disable {
-  opacity: 0.4; 
-  pointer-events: none; 
+  opacity: 0.4;
+  pointer-events: none;
   user-select: none;
 }
 </style>

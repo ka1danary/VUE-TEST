@@ -14,33 +14,32 @@ const allApiFunctions = {
       })
       .catch((error) => {
         console.error(error);
-        throw error; 
+        throw error;
       });
   },
 
   getAllInfoAboutValuesOfCurrencies() {
     return axios.get(URL_CURRENCIES)
-    .then((response) => {
+      .then((response) => {
         return response.data
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log(error)
         throw error
-    })
+      })
   },
 
   getInfoValueOfSpecificCurrency(name) {
     const url = `${BASE_URL}/latest?apikey=${API_KEY}&currencies=${name}`;
     return axios.get(url)
-    .then((response) => {
-      console.log('local ', response)
-      return response.data; 
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error; 
-    });
-  } 
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  }
 };
 
 export default allApiFunctions;

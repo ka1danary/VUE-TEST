@@ -30,8 +30,8 @@
 import "./pages.css";
 import SettingsTime from "@/components/SettingsTime.vue";
 import SettingsCurrenciesSelect from "@/components/SettingsCurrenciesSelect.vue";
-import MyCustomTypeButton from "@/components/UI/buttons/MyCustomTypeButton.vue";
-import { ref } from "vue";
+// import MyCustomTypeButton from "@/components/UI/buttons/MyCustomTypeButton.vue";
+// import { ref } from "vue";
 import { useHeaderStore } from "@/store/HeaderStore";
 
 name: "settings-page";

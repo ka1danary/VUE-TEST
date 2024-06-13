@@ -11,7 +11,11 @@
           </div>
         </div>
         <div class="item">{{ value }}</div>
-        <div class="item">{{ parsedDate.day }}.{{ parsedDate.month }}  {{ parsedDate.hours }}:{{ parsedDate.minutes }}</div>
+        <div class="item">
+          {{ parsedDate.day }}.{{ parsedDate.month }} {{ parsedDate.hours }}:{{
+            parsedDate.minutes
+          }}
+        </div>
         <div class="item right__field_btn">
           <img
             src="../../icons/reload-icons/update-val-off.svg"
@@ -39,8 +43,9 @@
 <script setup>
 import { computed, defineProps, ref } from "vue";
 import { useValueStore } from "@/store/ValuesStore";
-import MyLoader from "./MyLoader.vue";
 import { copyCurrence, parseDate } from "@/helpers/copyInfoAboutCurrence";
+
+import MyLoader from "./MyLoader.vue";
 
 const props = defineProps({
   icon: {
@@ -68,7 +73,6 @@ const copy = ref(false);
 const helperUpdate = async (name) => {
   loading.value = true;
   await store.updateConcreteCurrency(name);
-  console.log("work");
   loading.value = false;
 };
 
@@ -91,7 +95,6 @@ const helperCopy = () => {
 const parsedDate = computed(() => {
   return parseDate(props.date);
 });
-
 </script>
 
 <style scoped>

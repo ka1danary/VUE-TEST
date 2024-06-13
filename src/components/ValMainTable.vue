@@ -6,12 +6,17 @@
         <div class="value__list" v-if="!loadingCurrenceInfo">
           <div v-for="(currence, index) in allCurrence" :key="index">
             <div v-if="currence.isActive">
-              <value-field :icon="currence.code" :name="currence.name" :value="currence.value" :date="currence.lastUpdate" />
+              <value-field
+                :icon="currence.code"
+                :name="currence.name"
+                :value="currence.value"
+                :date="currence.lastUpdate"
+              />
             </div>
           </div>
         </div>
         <div v-else class="loading">
-          <my-loader/>
+          <my-loader />
         </div>
       </div>
     </div>
@@ -19,18 +24,18 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import ValueListTitle from "@/components/UI/ValueListTitle.vue";
 import ValueField from "@/components/UI/ValueField.vue";
 import { useValueStore } from "@/store/ValuesStore";
 import MyLoader from "@/components/UI/MyLoader.vue";
-import { sortCurrenciesByDateUp } from "@/helpers/copyInfoAboutCurrence";
 
 const store = useValueStore();
 
 const loadingCurrenceInfo = computed(() => store.isCurrencuesLoading);
-const allCurrence = computed(() => store.arrayReadyAssembleObjectWithCurrencies);
-
+const allCurrence = computed(
+  () => store.arrayReadyAssembleObjectWithCurrencies
+);
 </script>
 
 <style scoped>

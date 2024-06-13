@@ -7,7 +7,6 @@
             <my-route-button typeIcon="home" :status="headerStore.homeIcon" />
           </div>
         </router-link>
-        
         <router-link to="/settings">
           <my-route-button
             typeIcon="settings"
@@ -15,9 +14,8 @@
             @click="headerStore.setStateTrueForSettings"
           />
         </router-link>
-      
       </div>
-      <div class="header__right__menu" >
+      <div class="header__right__menu">
         <last-update-field :date="valueStore.lastUpdateAll" />
         <div @click="helperReload">
           <my-button-reload />
@@ -30,7 +28,6 @@
 <script setup>
 import { useValueStore } from "@/store/ValuesStore";
 import { useHeaderStore } from "@/store/HeaderStore";
-import { computed } from "vue";
 import MyRouteButton from "../UI/buttons/MyRouteButton.vue";
 import LastUpdateField from "../UI/LastUpdateField.vue";
 
@@ -38,10 +35,8 @@ const headerStore = useHeaderStore();
 const valueStore = useValueStore();
 
 const helperReload = async () => {
-  await valueStore.buildFullArrayOfCurrencies();
-  console.log('Update');
-}
-
+  await valueStore.updateAllCurrencies();
+};
 </script>
 
 <style scoped>

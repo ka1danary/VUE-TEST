@@ -20,13 +20,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useAutoUpdateStore } from "@/store/AutoUpdateStore";
 import MyCustomCheckbox from "@/components/UI/MyCustomCheckbox.vue";
 
 const updateStore = useAutoUpdateStore();
 
-// Обновляет значение в store
 const autoUpdateMode = computed({
   get: () => updateStore.autoUpdateMode,
   set: (value) => (updateStore.autoUpdateMode = value),

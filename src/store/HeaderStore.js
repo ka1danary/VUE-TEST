@@ -7,7 +7,7 @@ export const useHeaderStore = defineStore('headerStore', () => {
     const alertIcon = ref(true);
 
     const initializeState = () => {
-        const storedActiveTab = sessionStorage.getItem('activeTab');
+        const storedActiveTab = JSON.parse(sessionStorage.getItem('activeTab'));
         if (storedActiveTab) {
             if (storedActiveTab === 'home') {
                 homeIcon.value = true;
@@ -22,13 +22,13 @@ export const useHeaderStore = defineStore('headerStore', () => {
     const setStateTrueForHome = () => {
         homeIcon.value = true;
         settingsIcon.value = false;
-        sessionStorage.setItem('activeTab', 'home');
+        sessionStorage.setItem('activeTab', JSON.stringify('home'));
     };
 
     const setStateTrueForSettings = () => {
         settingsIcon.value = true;
         homeIcon.value = false;
-        sessionStorage.setItem('activeTab', 'settings');
+        sessionStorage.setItem('activeTab', JSON.stringify('settings'));
     };
 
     onMounted(() => {

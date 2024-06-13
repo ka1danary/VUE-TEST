@@ -1,7 +1,7 @@
 <template>
   <div v-if="alert">
     <div class="container">
-      <div class="alert__text_container">
+      <div class="alert__text__container">
         <div>
           <strong>{{ parseDateAlert.day }}.{{ parseDateAlert.month }} {{ parseDateAlert.hours }}:{{ parseDateAlert.minutes }}</strong>
         </div>
@@ -62,7 +62,7 @@ const nextUpdateParse = computed(() => {
   left: 30px;
 }
 
-.alert__text_container {
+.alert__text__container {
   height: 130px;
   border-bottom: 2px solid #d2dbde;
   display: flex;
@@ -87,13 +87,4 @@ const nextUpdateParse = computed(() => {
   font-size: 1.3em;
 }
 
-button {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  outline: none;
-}
 </style>

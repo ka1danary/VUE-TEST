@@ -1,6 +1,6 @@
 <template>
-  <div class="toggle-switch" @click="toggle">
-    <div class="toggle-circle" :class="{ 'toggle-on': isChecked }"></div>
+  <div class="toggle__switch" @click="toggle">
+    <div class="toggle__circle" :class="{ 'toggle__on': isChecked }"></div>
   </div>
 </template>
 
@@ -33,7 +33,7 @@ const toggle = () => {
 </script>
 
 <style scoped>
-.toggle-switch {
+.toggle__switch {
   width: 55px;
   height: 30px;
   background: #e9eef1;
@@ -44,7 +44,7 @@ const toggle = () => {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.toggle-circle {
+.toggle__circle {
   width: 24px;
   height: 24px;
   background: #8a8a8a;
@@ -52,7 +52,7 @@ const toggle = () => {
   margin: 3px;
   transition: transform 0.3s, background-color 0.3s;
 }
-.toggle-on {
+.toggle__on {
   transform: translateX(25px);
   background: #0096d5;
   

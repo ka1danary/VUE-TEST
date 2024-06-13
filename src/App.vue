@@ -3,12 +3,11 @@
     <MyHeader />
 
     <div class="content">
-        <div v-if="store.alertStatus">
-          <pop-up-window/>
-        </div>
-        <router-view />        
+      <div v-if="store.alertStatus">
+        <pop-up-window />
+      </div>
+      <router-view />
     </div>
-   
   </div>
 </template>
 
@@ -18,23 +17,11 @@ import { computed } from "vue";
 import { useAutoUpdateStore } from "./store/AutoUpdateStore";
 import popUpWindow from "./components/UI/popUpWindow.vue";
 
-const store = useAutoUpdateStore()
-
-// const frequency = computed({
-//   get: () => updateStore.frequencyUpdateValue,
-//   set: (value) => {
-//     const sanitizedValue = parseInt(value, 10);
-//     updateStore.frequencyUpdateValue = isNaN(sanitizedValue) ? 0 : sanitizedValue;
-//   }
-// });
+const store = useAutoUpdateStore();
 
 const alertWindow = computed({
-  get : () => 
-    store.alertStatus
-})
-
-
-
+  get: () => store.alertStatus,
+});
 </script>
 
 <style scoped>

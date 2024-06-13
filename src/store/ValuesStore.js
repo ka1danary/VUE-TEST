@@ -65,9 +65,9 @@ export const useValueStore = defineStore('valuesStore', () => {
         console.warn(`Отсутствуют данные для валюты: ${currencyCode}`);
         return null;
       }
-    }).filter(currency => currency !== null);
+    })
 
-    console.log('Final Array: ', arrayReadyAssembleObjectWithCurrencies.value);
+    console.log('Полный объект =>  ', arrayReadyAssembleObjectWithCurrencies.value);
     lastUpdateAll.value = new Date();
     isCurrenciesLoading.value = false;
     hasDataAlreadyBeenDownloaded.value = true;
@@ -90,11 +90,9 @@ export const useValueStore = defineStore('valuesStore', () => {
         }
         return currency;
       });
-
-      console.log(`Updated currency ${name}: `, newValue);
       saveToLocalStorageCurrencies();
     } catch (error) {
-      console.error(`Error updating currency ${name}:`, error);
+      console.error(`Ошибка обновления ${name}:`, error);
     }
     isCurrencyLoading.value = false;
   };
@@ -105,9 +103,6 @@ export const useValueStore = defineStore('valuesStore', () => {
       const response = await allApiFunctions.getAllLatestValueOfCurrencies();
       const newData = response.data;
 
-      console.log('Response:', response);
-      console.log('New Data:', newData);
-
       arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
         return {
           ...currency,
@@ -115,13 +110,13 @@ export const useValueStore = defineStore('valuesStore', () => {
           lastUpdate: new Date().toISOString()
         };
       });
-      
+
       lastUpdateAll.value = new Date();
 
-      console.log('Updated currencies:', arrayReadyAssembleObjectWithCurrencies.value);
+      console.log('Обнолвенные валюты => ', arrayReadyAssembleObjectWithCurrencies.value);
       saveToLocalStorageCurrencies();
     } catch (error) {
-      console.error('Error updating currencies:', error);
+      console.error('Ошибка обнолвения:', error);
       throw error;
     } finally {
       isCurrencyLoading.value = false;
@@ -138,7 +133,7 @@ export const useValueStore = defineStore('valuesStore', () => {
       }
       return currency;
     });
-    console.log('Массив после настроек ', arrayReadyAssembleObjectWithCurrencies.value);
+    console.log('Массив после настроек => ', arrayReadyAssembleObjectWithCurrencies.value);
     saveToLocalStorageCurrencies();
   };
 

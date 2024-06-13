@@ -1,11 +1,17 @@
 <template>
   <div class="btn__container" :style="{ width: widthButton }">
-    <div class="confirm" v-if="typeButton === 'Confirm'" :style="{ width: widthButton }">
+    <div
+      class="confirm"
+      v-if="typeButton === 'Confirm'"
+      :style="{ width: widthButton }"
+    >
       Подтвердить
     </div>
-    <div class="reject" v-else :style="{ width: widthButton }">
-      Отмена
-    </div>
+    <div class="reject" 
+    v-else :style="{ width: widthButton }"
+    >
+    Отмена
+  </div>
   </div>
 </template>
 
@@ -37,7 +43,6 @@ const props = defineProps({
   padding: 10px;
   transition: border 0.3s ease, color 0.3s ease;
   cursor: pointer;
- 
 }
 
 .confirm {
@@ -49,16 +54,13 @@ const props = defineProps({
   background: white;
   border: 1px solid white;
   color: black;
- 
 }
 
 .confirm:hover {
   background: rgb(0, 130, 190);
-  
 }
 
 .reject:hover {
   border: 1px solid #a4c4d1;
-  
 }
 </style>

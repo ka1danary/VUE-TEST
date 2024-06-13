@@ -4,20 +4,18 @@ import { useValueStore } from "./ValuesStore";
 
 export const useAutoUpdateStore = defineStore('alertStore', () => {
 
-    const frequencyUpdateValue = ref(parseInt(localStorage.getItem('frequencyUpdateValue')) || 30);
-    const autoUpdateMode = ref(localStorage.getItem('autoUpdateMode') === 'true');
+    const frequencyUpdateValue = ref(JSON.parse(localStorage.getItem('frequencyUpdateValue')) || 30);
+    const autoUpdateMode = ref(JSON.parse(localStorage.getItem('autoUpdateMode')) || false);
     const alertStatus = ref(false);
     const intervalId = ref(null);
 
     const currenceStore = useValueStore();
 
-    // сохраняем в localStorage
     const saveToLocalStorage = () => {
-        localStorage.setItem('frequencyUpdateValue', frequencyUpdateValue.value.toString());
-        localStorage.setItem('autoUpdateMode', autoUpdateMode.value.toString());
+        localStorage.setItem('frequencyUpdateValue', JSON.stringify(frequencyUpdateValue.value));
+        localStorage.setItem('autoUpdateMode', JSON.stringify(autoUpdateMode.value));
     };
 
-    // помогает вызвать функцию обновления данных
     const autoUpdateHelper = () => {
         currenceStore.updateAllCurrencies();
         alertStatus.value = true;
@@ -26,7 +24,6 @@ export const useAutoUpdateStore = defineStore('alertStore', () => {
         }, 10000);
     };
 
-    // начало автом обновления 
     const startAutoUpdate = () => {
         if (intervalId.value) {
             clearInterval(intervalId.value);

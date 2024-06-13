@@ -10,7 +10,6 @@ import { defineProps } from "vue";
 import { parseDate } from "@/helpers/copyInfoAboutCurrence";
 import { computed } from "vue";
 
-
 const props = defineProps({
   date: {
     type: String,

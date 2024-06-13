@@ -9,7 +9,6 @@
       </div>
     </div>
     <div v-else-if="typeIcon === 'settings'">
-      <!-- Add content for Settings button here -->
       <div v-if="status" class="img__content">
         <img src="../../../icons/setting-icons/settings-on.svg" />
       </div>
@@ -29,13 +28,8 @@ const props = defineProps({
   status: {
     type: Boolean,
     required: true,
-  },
+  }
 });
-
-
-
 </script>
 
-<style scoped>
-  /* Add your scoped styles here */
-</style>
+<style scoped></style>

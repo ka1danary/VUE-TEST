@@ -10,17 +10,6 @@ export const copyCurrence = async (currenceObject) => {
         })
 }
 
-export const buildCurrenceObject = (code, name, value, lastUpdate) => {
-    const templateObject = {
-
-        code: code,
-        name: name,
-        value: value,
-        lastUpdate: lastUpdate
-    }
-    return templateObject
-}
-
 export const parseDate = (date) => {
     const dateObject = new Date(date);
     const day = dateObject.getDate().toString().padStart(2, '0');  

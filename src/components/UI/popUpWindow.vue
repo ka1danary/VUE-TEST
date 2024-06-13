@@ -1,34 +1,65 @@
 <template>
-  <div>
+  <div v-if="alert">
     <div class="container">
       <div class="alert__text_container">
         <div>
-          <strong> 19.00.2004 15:00</strong> 
+          <strong>{{ parseDateAlert.day }}.{{ parseDateAlert.month }} {{ parseDateAlert.hours }}:{{ parseDateAlert.minutes }}</strong>
         </div>
         <div class="text">Автоматическое обновление данных</div>
         <br />
-        <div class="text"> Следущее обновление в  16:00 </div>
-        
+        <div class="text">Следующее обновление в {{ nextUpdateParse.hours }}:{{ nextUpdateParse.minutes }}</div>
       </div>
       <div class="alert__bottom">
-        <button>Ok</button>
+        <button @click="helperClose">Ok</button>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
-name: "pop-up-window";
+import { useAutoUpdateStore } from '@/store/AutoUpdateStore';
+import { useValueStore } from '@/store/ValuesStore';
+import { calculateDate, parseDate } from '@/helpers/copyInfoAboutCurrence';
+import { computed } from 'vue';
+
+const autoUpdateStore = useAutoUpdateStore();
+const valueStore = useValueStore();
+
+const alert = computed(() => autoUpdateStore.alertStatus);
+const lastUpdate = computed(() => valueStore.lastUpdateAll);
+const frequency = computed(() => autoUpdateStore.frequencyUpdateValue);
+
+const helperClose = () => {
+  autoUpdateStore.alertStatus = false;
+};
+
+const parseDateAlert = computed(() => {
+  return parseDate(lastUpdate.value);
+});
+
+const nextUpdate = computed(() => {
+  return calculateDate(lastUpdate.value, frequency.value);
+});
+
+const nextUpdateParse = computed(() => {
+  return parseDate(nextUpdate.value);
+});
 </script>
+
 <style scoped>
 .container {
   width: 205px;
   height: 200px;
   border-radius: 10px;
+  background: white;
   box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: absolute;
+  top: 10px;
+  left: 30px;
 }
 
 .alert__text_container {
@@ -52,7 +83,7 @@ name: "pop-up-window";
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  color: #0096D5;
+  color: #0096d5;
   font-size: 1.3em;
 }
 

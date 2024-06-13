@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { onMounted, ref } from "vue";
 import allApiFunctions from "@/API/valueService";
+import { sortCurrenciesByDateUp } from "@/helpers/copyInfoAboutCurrence";
 
 export const useValueStore = defineStore('valuesStore', () => {
   let allKeysOfCurrencies = ref([]);
@@ -88,6 +89,21 @@ export const useValueStore = defineStore('valuesStore', () => {
     isCurrencyLoading.value = false
   };
 
+  const selectCurrenciesInSettings = (name, status) => {
+    arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
+      if(currency.name === name) {
+        return {
+          ...currency,
+          isActive: status
+        };
+      }
+      return currency;
+    });
+    console.log('Массив после настроек ', arrayReadyAssembleObjectWithCurrencies.value);
+  }
+  
+
+
   onMounted(() => {
     buildFullArrayOfCurrience();
   });
@@ -103,6 +119,7 @@ export const useValueStore = defineStore('valuesStore', () => {
     buildFullArrayOfCurrience,
     updateConcreteCurrency,
     isCurrencyLoading,
-    lastUpdateAll
+    lastUpdateAll,
+    selectCurrenciesInSettings
   };
 });

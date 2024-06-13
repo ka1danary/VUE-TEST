@@ -1,13 +1,22 @@
 <template>
   <div class="container">
     <div class="list__values" v-if="!isLoading">
-      <div class="item" v-for="(currency, index) in allCurrence" :key="index" :class="{ 'inactive': !currency.isActive }">
-        <div class="name">
-          <div style="color: #2979ff">{{ currency.code }}</div>
-          <div>{{ currency.name }}</div>
-        </div>
-        <div class="select">
-          <my-radio-checkbox :isActive="currency.isActive" />
+      <div
+        v-for="(currency, index) in allCurrence"
+        :key="index"
+        :class="{ inactive: !currency.isActive }"
+      >
+        <div class="item">
+          <div class="name">
+            <div style="color: #2979ff">{{ currency.code }}</div>
+            <div>{{ currency.name }}</div>
+          </div>
+          <div class="select">
+            <my-radio-checkbox 
+              v-model="currency.isActive" 
+              @update:modelValue="(status) => helperSelect(currency.name, status)" 
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -19,19 +28,26 @@
 
 <script setup>
 import MyRadioCheckbox from "./UI/MyRadioCheckbox.vue";
-import { computed,ref } from "vue";
+import { computed } from "vue";
 import { useValueStore } from "@/store/ValuesStore";
 import MyLoader from "./UI/MyLoader.vue";
 
 const store = useValueStore();
-const isLoading = computed(() => store.isCurrencuesLoading)
+
+const isLoading = computed(() => store.isCurrencuesLoading);
 const allCurrence = computed(() => store.arrayReadyAssembleObjectWithCurrencies);
+
+const setSettings = store.selectCurrenciesInSettings;
+
+const helperSelect = (name, status) => {
+  setSettings(name, status);
+};
 </script>
 
 <style scoped>
 .container {
   background: rgb(234, 239, 241);
-  height: 400px;
+  height: 450px;
   box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
   padding: 30px;
   overflow-y: scroll;
@@ -73,10 +89,10 @@ const allCurrence = computed(() => store.arrayReadyAssembleObjectWithCurrencies)
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 400px
+  height: 400px;
 }
 
 .inactive {
-  opacity: 0.5; /* Пример полупрозрачности для неактивного элемента */
+  opacity: 0.5;
 }
 </style>

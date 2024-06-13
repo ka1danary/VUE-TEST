@@ -1,11 +1,12 @@
 <template>
   <div class="main">
     <MyHeader />
+
     <div class="content">
-     
-        <router-view />
-        
-        
+        <div v-if="store.alertStatus">
+          <pop-up-window/>
+        </div>
+        <router-view />        
     </div>
   </div>
 </template>
@@ -16,6 +17,7 @@ import allApiFunctions from "./API/valueService";
 import { useValueStore } from "./store/ValuesStore";
 import { computed } from "vue";
 import { useAutoUpdateStore } from "./store/AutoUpdateStore";
+import popUpWindow from "./components/UI/popUpWindow.vue";
 
 const store = useAutoUpdateStore()
 
@@ -29,13 +31,7 @@ const store = useAutoUpdateStore()
 
 const alertWindow = computed({
   get : () => 
-    store.alertStatus,
-  
-  set : () => {
-    setTimeout(() => {
-      
-    }, 1000)
-  }
+    store.alertStatus
 })
 
 </script>

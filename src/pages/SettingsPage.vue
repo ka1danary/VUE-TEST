@@ -16,12 +16,12 @@
         <div>
           <settings-time />
         </div>
-        <div class="btns">
+        <!-- <div class="btns">
           <router-link to="/" style="text-decoration: none;">
             <my-custom-type-button widthButton="200px" typeButton="reject" @click="store.setStateTrueForHome"/>
           </router-link>
           <my-custom-type-button widthButton="200px" />
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

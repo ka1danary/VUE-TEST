@@ -1,31 +1,23 @@
 <template>
   <div class="radio" @click="toogleRadio">
-    <div v-if="status" class="radio__on"></div>
+    <div v-if="modelValue" class="radio__on"></div>
   </div>
 </template>
 
-  
 <script setup>
-import { defineProps, defineEmits, ref, watch } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-  radioStatus: {
+  modelValue: {
     type: Boolean,
     default: true,
   },
 });
 
-const emit = defineEmits(['update:radioStatus']);
-
-const status = ref(props.radioStatus);
-
-watch(() => props.radioStatus, (newValue) => {
-  status.value = newValue;
-});
+const emit = defineEmits(['update:modelValue']);
 
 const toogleRadio = () => {
-  status.value = !status.value;
-  emit('update:radioStatus', status.value);
+  emit('update:modelValue', !props.modelValue);
 };
 </script>
 

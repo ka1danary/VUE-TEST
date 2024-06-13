@@ -12,7 +12,12 @@ export const useAutoUpdateStore = defineStore('alertStore', () => {
 
     // помогает вызвать функцию обновления данных
     const autoUpdateHelper = () => {
+
         currenceStore.buildFullArrayOfCurrience();
+        alertStatus.value = true
+        setTimeout(() => {
+            alertStatus.value = false
+        }, 10000)
     };
 
     // начало автом обновления 

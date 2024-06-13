@@ -15,7 +15,7 @@
             @click="headerStore.setStateTrueForSettings"
           />
         </router-link>
-        <my-button-alert :status="alertIcon" />
+      
       </div>
       <div class="header__right__menu" >
         <last-update-field :date="valueStore.lastUpdateAll" />
@@ -61,7 +61,7 @@ const helperReload = async () => {
 .header__left__menu {
   display: flex;
   justify-content: space-around;
-  width: 200px;
+  width: 150px;
   margin-left: 20px;
 }
 

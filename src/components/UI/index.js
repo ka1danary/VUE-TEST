@@ -4,8 +4,6 @@ import ValueField from "@/components/UI/ValueField.vue"
 import ValueListTitle from '@/components/UI/ValueListTitle.vue'
 import ValueMainTable from '@/components/ValMainTable.vue'
 
-import popUpWindow from '@/components/UI/popUpWindow.vue'
-
 import MyButtonAlert from '@/components/UI/buttons/MyButtonAlert.vue';
 import MyButonReload from '@/components/UI/buttons/MyButtonReload.vue'
 import MyRouteButton from '@/components/UI/buttons/MyRouteButton.vue';
@@ -19,8 +17,5 @@ export default [
     MyButtonAlert,
     MyButonReload,
     MyRouteButton,
-
-    popUpWindow
-
     
 ]

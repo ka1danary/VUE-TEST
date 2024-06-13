@@ -40,3 +40,19 @@ export const parseDate = (date) => {
     }
 }
 
+export const sortCurrenciesByDateUp = (currenciesArray) => {
+    return currenciesArray.sort((a, b) => a.value > b.value ? 1 : -1)
+}
+
+export const sortCurrenciesByDateDown = (currenciesArray) => {
+    return currenciesArray.sort((a, b) => a.value < b.value ? 1 : -1)
+}
+
+export const calculateDate = (dateString, minutes) => {
+    
+    const date = new Date(dateString);
+    
+    date.setMinutes(date.getMinutes() + minutes);
+    return date.toISOString();
+}
+  

@@ -1,16 +1,16 @@
 # client
 
-## Project setup
+## Установка проекта
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Компилирует и выполняет горячую перезагрузку для разработки
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Компилирует и минифицирует для производства
 ```
 yarn build
 ```

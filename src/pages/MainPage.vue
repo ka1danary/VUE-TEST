@@ -3,9 +3,9 @@
     <div class="page__content">
       <div class="title_page">
         <div class="title">Валюта</div>
-        <div>
+        <!-- <div>
           <custom-sort-container/>
-        </div>
+        </div> -->
       </div>
       <div class="page__content">
         <value-main-table />

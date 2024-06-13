@@ -48,7 +48,7 @@ const nextUpdateParse = computed(() => {
 
 <style scoped>
 .container {
-  width: 205px;
+  width: 210px;
   height: 200px;
   border-radius: 10px;
   background: white;
@@ -58,7 +58,7 @@ const nextUpdateParse = computed(() => {
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
-  top: 10px;
+  top: 70px;
   left: 30px;
 }
 

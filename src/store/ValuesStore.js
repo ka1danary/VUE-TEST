@@ -1,24 +1,31 @@
 import { defineStore } from "pinia";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import allApiFunctions from "@/API/valueService";
 import { sortCurrenciesByDateUp } from "@/helpers/copyInfoAboutCurrence";
 
 export const useValueStore = defineStore('valuesStore', () => {
-  let allKeysOfCurrencies = ref([]);
-  let allValuesOfCurrecies = ref({});
-  let allInfoAboutValues = ref([]);
+  const allKeysOfCurrencies = ref([]);
+  const allValuesOfCurrencies = ref({});
+  const allInfoAboutValues = ref([]);
 
-  let arrayReadyAssembleObjectWithCurrencies = ref([]);
-  let isCurrencuesLoading = ref(false);
-  let isCurrencyLoading = ref(false)
+  const arrayReadyAssembleObjectWithCurrencies = ref(JSON.parse(localStorage.getItem('arrayReadyAssembleObjectWithCurrencies')) || []);
+  const hasDataAlreadyBeenDownloaded = ref(JSON.parse(localStorage.getItem('hasDataAlreadyBeenDownloaded')) || false);
+  const isCurrenciesLoading = ref(false);
+  const isCurrencyLoading = ref(false);
 
-  let lastUpdateAll = ref(new Date())
+  const lastUpdateAll = ref(new Date(JSON.parse(localStorage.getItem('lastUpdateAll')) || new Date()));
 
-  const getAllValuesOfCurrecies = async () => {
+  const saveToLocalStorageCurrencies = () => {
+    localStorage.setItem('arrayReadyAssembleObjectWithCurrencies', JSON.stringify(arrayReadyAssembleObjectWithCurrencies.value));
+    localStorage.setItem('lastUpdateAll', JSON.stringify(lastUpdateAll.value));
+    localStorage.setItem('hasDataAlreadyBeenDownloaded', JSON.stringify(hasDataAlreadyBeenDownloaded.value));
+  };
+
+  const getAllValuesOfCurrencies = async () => {
     try {
       const response = await allApiFunctions.getAllLatestValueOfCurrencies();
-      allValuesOfCurrecies.value = response.data;
-      console.log('Price ', allValuesOfCurrecies.value);
+      allValuesOfCurrencies.value = response.data;
+      console.log('Price ', allValuesOfCurrencies.value);
     } catch (error) {
       console.error('Error fetching all values:', error);
     }
@@ -28,23 +35,23 @@ export const useValueStore = defineStore('valuesStore', () => {
     try {
       const response = await allApiFunctions.getAllInfoAboutValuesOfCurrencies();
       allInfoAboutValues.value = response.data;
-      console.log('info ', allInfoAboutValues.value);
+      console.log('Info ', allInfoAboutValues.value);
     } catch (error) {
       console.error('Error fetching all info about values:', error);
     }
   };
 
-  const buildFullArrayOfCurrience = async () => {
-    isCurrencuesLoading.value = true;
+  const buildFullArrayOfCurrencies = async () => {
+    isCurrenciesLoading.value = true;
 
-    await getAllValuesOfCurrecies();
+    await getAllValuesOfCurrencies();
     await getAllInfoOfCurrencies();
 
-    allKeysOfCurrencies.value = Object.keys(allValuesOfCurrecies.value);
+    allKeysOfCurrencies.value = Object.keys(allValuesOfCurrencies.value);
 
     arrayReadyAssembleObjectWithCurrencies.value = allKeysOfCurrencies.value.map((currencyCode) => {
       const info = allInfoAboutValues.value[currencyCode];
-      const value = allValuesOfCurrecies.value[currencyCode];
+      const value = allValuesOfCurrencies.value[currencyCode];
 
       if (info && value) {
         return {
@@ -61,12 +68,14 @@ export const useValueStore = defineStore('valuesStore', () => {
     }).filter(currency => currency !== null);
 
     console.log('Final Array: ', arrayReadyAssembleObjectWithCurrencies.value);
-    lastUpdateAll.value = new Date()
-    isCurrencuesLoading.value = false;
+    lastUpdateAll.value = new Date();
+    isCurrenciesLoading.value = false;
+    hasDataAlreadyBeenDownloaded.value = true;
+    saveToLocalStorageCurrencies();
   };
 
   const updateConcreteCurrency = async (name) => {
-    isCurrencyLoading.value = true
+    isCurrencyLoading.value = true;
     try {
       const response = await allApiFunctions.getInfoValueOfSpecificCurrency(name);
       const newValue = response.data[name];
@@ -83,15 +92,45 @@ export const useValueStore = defineStore('valuesStore', () => {
       });
 
       console.log(`Updated currency ${name}: `, newValue);
+      saveToLocalStorageCurrencies();
     } catch (error) {
       console.error(`Error updating currency ${name}:`, error);
     }
-    isCurrencyLoading.value = false
+    isCurrencyLoading.value = false;
+  };
+
+  const updateAllCurrencies = async () => {
+    isCurrencyLoading.value = true;
+    try {
+      const response = await allApiFunctions.getAllLatestValueOfCurrencies();
+      const newData = response.data;
+
+      console.log('Response:', response);
+      console.log('New Data:', newData);
+
+      arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
+        return {
+          ...currency,
+          value: newData[currency.name],
+          lastUpdate: new Date().toISOString()
+        };
+      });
+      
+      lastUpdateAll.value = new Date();
+
+      console.log('Updated currencies:', arrayReadyAssembleObjectWithCurrencies.value);
+      saveToLocalStorageCurrencies();
+    } catch (error) {
+      console.error('Error updating currencies:', error);
+      throw error;
+    } finally {
+      isCurrencyLoading.value = false;
+    }
   };
 
   const selectCurrenciesInSettings = (name, status) => {
     arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
-      if(currency.name === name) {
+      if (currency.name === name) {
         return {
           ...currency,
           isActive: status
@@ -100,26 +139,32 @@ export const useValueStore = defineStore('valuesStore', () => {
       return currency;
     });
     console.log('Массив после настроек ', arrayReadyAssembleObjectWithCurrencies.value);
-  }
-  
+    saveToLocalStorageCurrencies();
+  };
 
+  watch(arrayReadyAssembleObjectWithCurrencies, () => {
+    saveToLocalStorageCurrencies();
+  }, { deep: true });
 
   onMounted(() => {
-    buildFullArrayOfCurrience();
+    if (!hasDataAlreadyBeenDownloaded.value || arrayReadyAssembleObjectWithCurrencies.value.length === 0) {
+      buildFullArrayOfCurrencies();
+    }
   });
 
   return {
     allKeysOfCurrencies,
-    allValuesOfCurrecies,
-    getAllValuesOfCurrecies,
+    allValuesOfCurrencies,
+    getAllValuesOfCurrencies,
     getAllInfoOfCurrencies,
     allInfoAboutValues,
-    isCurrencuesLoading,
+    isCurrenciesLoading,
     arrayReadyAssembleObjectWithCurrencies,
-    buildFullArrayOfCurrience,
+    buildFullArrayOfCurrencies,
     updateConcreteCurrency,
     isCurrencyLoading,
     lastUpdateAll,
-    selectCurrenciesInSettings
+    selectCurrenciesInSettings,
+    updateAllCurrencies
   };
 });

@@ -38,11 +38,9 @@ const headerStore = useHeaderStore();
 const valueStore = useValueStore();
 
 const helperReload = async () => {
-  await valueStore.buildFullArrayOfCurrience();
-
+  await valueStore.buildFullArrayOfCurrencies();
   console.log('Update');
 }
-
 
 </script>
 

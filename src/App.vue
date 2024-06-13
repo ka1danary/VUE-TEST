@@ -8,13 +8,12 @@
         </div>
         <router-view />        
     </div>
+   
   </div>
 </template>
 
 <script setup>
 import MyHeader from "./components/header/MyHeader.vue";
-import allApiFunctions from "./API/valueService";
-import { useValueStore } from "./store/ValuesStore";
 import { computed } from "vue";
 import { useAutoUpdateStore } from "./store/AutoUpdateStore";
 import popUpWindow from "./components/UI/popUpWindow.vue";
@@ -33,6 +32,8 @@ const alertWindow = computed({
   get : () => 
     store.alertStatus
 })
+
+
 
 </script>
 

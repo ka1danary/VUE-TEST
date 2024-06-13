@@ -92,7 +92,6 @@
     box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
     overflow: hidden;
     width: 200px;
-    
   }
   
   .dropdown__item {

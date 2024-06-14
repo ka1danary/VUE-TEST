@@ -6,7 +6,7 @@
         <div class="value__list" v-if="!loadingCurrenceInfo">
           <my-base-currency/>
           <div v-for="(currence, index) in allCurrence" :key="index">
-            <div v-if="currence.isActive">
+            <div v-if="currence.isActive && currence.name != baseCurrency.name">
               <value-field
                 :icon="currence.code"
                 :name="currence.name"
@@ -38,6 +38,9 @@ const loadingCurrenceInfo = computed(() => store.isCurrenciesLoading);
 const allCurrence = computed(
   () => store.arrayReadyAssembleObjectWithCurrencies
 );
+const baseCurrency = computed(
+  () => store.selectedBaseCurrency
+)
 </script>
 
 <style scoped>

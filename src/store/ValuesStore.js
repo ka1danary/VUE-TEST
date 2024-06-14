@@ -87,6 +87,7 @@ export const useValueStore = defineStore('valuesStore', () => {
       const newValue = response.data[name];
 
       arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
+        
         if (currency.name === name) {
           return {
             ...currency,
@@ -97,6 +98,7 @@ export const useValueStore = defineStore('valuesStore', () => {
         return currency;
       });
       saveToLocalStorageCurrencies();
+      console.log()
     } catch (error) {
       console.error(`Ошибка обновления ${name}:`, error);
     }

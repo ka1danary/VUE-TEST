@@ -71,6 +71,7 @@ const store = useValueStore();
 const loading = ref(false);
 const copy = ref(false);
 
+
 const helperUpdate = async (name) => {
   loading.value = true;
   await store.updateConcreteCurrency(name);

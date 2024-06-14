@@ -25,8 +25,9 @@
     
 
 ### Технологии
-*Основные:* Vue 3, Pinia, Axios
-*Дополнительные:* epic-spinners
+- *Основные:* Vue 3, Pinia, Axios
+  
+- *Дополнительные:* epic-spinners
 
 ## Общая информация по проекту
 
@@ -47,9 +48,9 @@
 Используются следующие функции из `allApiFunctions`:
 
 - **getAllLatestValueOfCurrencies(name):** получение текущих значений всех валют.
-- 
+  
 - **getAllInfoAboutValuesOfCurrencies():** получение информации о всех валютах.
-- 
+  
 - **getInfoValueOfSpecificCurrency(name, base_currency):** получение информации о конкретной валюте.
 
 ## Локальное хранилище

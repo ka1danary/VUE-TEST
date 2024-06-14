@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { onMounted, ref, watch } from "vue";
 import allApiFunctions from "@/API/valueService";
-import { sortCurrenciesByDateUp } from "@/helpers/copyInfoAboutCurrence";
 
 export const useValueStore = defineStore('valuesStore', () => {
   const allKeysOfCurrencies = ref(JSON.parse(localStorage.getItem('allKeysOfCurrencies')) || []);
@@ -15,8 +14,8 @@ export const useValueStore = defineStore('valuesStore', () => {
 
   const lastUpdateAll = ref(new Date(JSON.parse(localStorage.getItem('lastUpdateAll')) || new Date()));
   const selectedBaseCurrency = ref(JSON.parse(localStorage.getItem('selectedBaseCurrency')) || {
-    code : '$',
-    name : 'USD'
+    code: '$',
+    name: 'USD'
   });
 
   const saveToLocalStorageCurrencies = () => {
@@ -49,12 +48,13 @@ export const useValueStore = defineStore('valuesStore', () => {
 
   const buildFullArrayOfCurrencies = async () => {
     isCurrenciesLoading.value = true;
+    console.log('Starting to build full array of currencies');
 
     await getAllValuesOfCurrencies();
     await getAllInfoOfCurrencies();
 
     allKeysOfCurrencies.value = Object.keys(allValuesOfCurrencies.value);
-    console.log('keys ', allKeysOfCurrencies.value)
+    console.log('keys ', allKeysOfCurrencies.value);
     arrayReadyAssembleObjectWithCurrencies.value = allKeysOfCurrencies.value.map((currencyCode) => {
       const info = allInfoAboutValues.value[currencyCode];
       const value = allValuesOfCurrencies.value[currencyCode];
@@ -83,7 +83,7 @@ export const useValueStore = defineStore('valuesStore', () => {
   const updateConcreteCurrency = async (name) => {
     isCurrencyLoading.value = true;
     try {
-      const response = await allApiFunctions.getInfoValueOfSpecificCurrency(name);
+      const response = await allApiFunctions.getInfoValueOfSpecificCurrency(name, selectedBaseCurrency.value.name);
       const newValue = response.data[name];
 
       arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
@@ -104,7 +104,7 @@ export const useValueStore = defineStore('valuesStore', () => {
   };
 
   const updateAllCurrencies = async () => {
-    isCurrencyLoading.value = true;
+    isCurrenciesLoading.value = true;
     try {
       const response = await allApiFunctions.getAllLatestValueOfCurrencies(selectedBaseCurrency.value.name);
       const newData = response.data;
@@ -125,7 +125,7 @@ export const useValueStore = defineStore('valuesStore', () => {
       console.error('Ошибка обнолвения:', error);
       throw error;
     } finally {
-      isCurrencyLoading.value = false;
+      isCurrenciesLoading.value = false;
     }
   };
 
@@ -145,7 +145,7 @@ export const useValueStore = defineStore('valuesStore', () => {
 
   const setSelectedBaseCurrency = () => {
     localStorage.setItem('selectedBaseCurrency', JSON.stringify(selectedBaseCurrency.value));
-    updateAllCurrencies()
+    updateAllCurrencies();
   };
 
   watch([selectedBaseCurrency], () => {
@@ -159,6 +159,8 @@ export const useValueStore = defineStore('valuesStore', () => {
   onMounted(() => {
     if (!hasDataAlreadyBeenDownloaded.value || arrayReadyAssembleObjectWithCurrencies.value.length === 0) {
       buildFullArrayOfCurrencies();
+    } else {
+      console.log('Data has already been downloaded or array is not empty');
     }
   });
 

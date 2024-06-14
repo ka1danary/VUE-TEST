@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="field"  :style="{ background: color }">
+    <div class="field" :style="{ background: color }">
       <div class="container__field" v-if="!loading">
         <div class="item__name">
           <div class="icon">
@@ -63,8 +63,8 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: 'white', 
-  }
+    default: "white",
+  },
 });
 
 const store = useValueStore();
@@ -85,7 +85,7 @@ const helperCopy = () => {
     lastUpdate: props.date,
   };
   copyCurrence(currenceObject);
-
+  
   copy.value = true;
 
   setTimeout(() => {

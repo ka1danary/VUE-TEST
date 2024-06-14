@@ -30,8 +30,8 @@ const allApiFunctions = {
       });
   },
 
-  getInfoValueOfSpecificCurrency(name) {
-    const url = `${BASE_URL}/latest?apikey=${API_KEY}&currencies=${name}`;
+  getInfoValueOfSpecificCurrency(name, base_currency) {
+    const url = `${BASE_URL}/latest?apikey=${API_KEY}&currencies=${name}=&base_currency=${base_currency}`;
     return axios.get(url)
       .then((response) => {
         return response.data;

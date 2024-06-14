@@ -34,7 +34,7 @@ import MyBaseCurrency from '@/components/UI/MyBaseCurrence.vue'
 
 const store = useValueStore();
 
-const loadingCurrenceInfo = computed(() => store.isCurrencuesLoading);
+const loadingCurrenceInfo = computed(() => store.isCurrenciesLoading);
 const allCurrence = computed(
   () => store.arrayReadyAssembleObjectWithCurrencies
 );

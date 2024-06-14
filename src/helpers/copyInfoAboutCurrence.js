@@ -1,19 +1,22 @@
 
 export const copyCurrence = async (currenceObject) => {
-    const convertToJson = JSON.stringify(currenceObject)
-    await navigator.clipboard.writeText(convertToJson)
-        .then((copyText) => {
-            return copyText
-        })
-        .catch((error) => {
-            throw error
-        })
-}
+
+    const convertToJson = JSON.stringify(currenceObject);
+
+    try {
+        await navigator.clipboard.writeText(convertToJson);
+        console.log('Copied to clipboard:', convertToJson);
+    } catch (error) {
+        console.error('Error copying to clipboard:', error);
+        throw error;
+    }
+};
+
 
 export const parseDate = (date) => {
     const dateObject = new Date(date);
-    const day = dateObject.getDate().toString().padStart(2, '0');  
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');  
+    const day = dateObject.getDate().toString().padStart(2, '0');
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
     const year = dateObject.getFullYear();
 
     const hours = dateObject.getHours().toString().padStart(2, '0');
@@ -38,10 +41,9 @@ export const sortCurrenciesByDateDown = (currenciesArray) => {
 }
 
 export const calculateDate = (dateString, minutes) => {
-    
+
     const date = new Date(dateString);
-    
+
     date.setMinutes(date.getMinutes() + minutes);
     return date.toISOString();
 }
-  

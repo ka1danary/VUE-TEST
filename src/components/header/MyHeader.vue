@@ -31,6 +31,8 @@ import { useHeaderStore } from "@/store/HeaderStore";
 import MyRouteButton from "../UI/buttons/MyRouteButton.vue";
 import LastUpdateField from "../UI/LastUpdateField.vue";
 
+import './MyHeader.css'
+
 const headerStore = useHeaderStore();
 const valueStore = useValueStore();
 
@@ -64,4 +66,5 @@ const helperReload = async () => {
   width: 350px;
   margin-right: 10px;
 }
+
 </style>

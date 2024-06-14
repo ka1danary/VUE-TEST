@@ -7,8 +7,9 @@ const URL_LATEST = `${BASE_URL}/latest?apikey=${API_KEY}`;
 const URL_CURRENCIES = `${BASE_URL}/currencies?apikey=${API_KEY}`;
 
 const allApiFunctions = {
-  getAllLatestValueOfCurrencies() {
-    return axios.get(URL_LATEST)
+  getAllLatestValueOfCurrencies(name) {
+    const url = `${BASE_URL}/latest?apikey=${API_KEY}&currencies=&base_currency=${name}`;
+    return axios.get(url)  
       .then((response) => {
         return response.data;
       })
@@ -21,12 +22,12 @@ const allApiFunctions = {
   getAllInfoAboutValuesOfCurrencies() {
     return axios.get(URL_CURRENCIES)
       .then((response) => {
-        return response.data
+        return response.data;
       })
       .catch((error) => {
-        console.log(error)
-        throw error
-      })
+        console.log(error);
+        throw error;
+      });
   },
 
   getInfoValueOfSpecificCurrency(name) {

@@ -1,9 +1,10 @@
 <template>
   <div class="container">
     <div>
-      <div><value-list-title /></div>
+      <div class="base__currencie"><value-list-title /></div>
       <div class="value__container">
         <div class="value__list" v-if="!loadingCurrenceInfo">
+          <my-base-currency/>
           <div v-for="(currence, index) in allCurrence" :key="index">
             <div v-if="currence.isActive">
               <value-field
@@ -29,6 +30,7 @@ import ValueListTitle from "@/components/UI/ValueListTitle.vue";
 import ValueField from "@/components/UI/ValueField.vue";
 import { useValueStore } from "@/store/ValuesStore";
 import MyLoader from "@/components/UI/MyLoader.vue";
+import MyBaseCurrency from '@/components/UI/MyBaseCurrence.vue'
 
 const store = useValueStore();
 
@@ -68,5 +70,8 @@ const allCurrence = computed(
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.base__currencie {
+  position: sticky;
 }
 </style>

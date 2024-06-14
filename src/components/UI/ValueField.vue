@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="field">
+    <div class="field"  :style="{ background: color }">
       <div class="container__field" v-if="!loading">
         <div class="item__name">
           <div class="icon">
@@ -50,20 +50,21 @@ import MyLoader from "./MyLoader.vue";
 const props = defineProps({
   icon: {
     type: String,
-    default: "$",
   },
   name: {
     type: String,
-    default: "USD",
   },
   value: {
     type: Number,
-    default: 1,
   },
   date: {
     type: String,
     default: new Date().toISOString(),
   },
+  color: {
+    type: String,
+    default: 'white', 
+  }
 });
 
 const store = useValueStore();

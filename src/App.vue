@@ -1,13 +1,14 @@
 <template>
   <div class="main">
     <MyHeader />
-
+    
     <div class="content">
       <div v-if="store.alertStatus">
         <pop-up-window />
       </div>
       <router-view />
     </div>
+    
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import MyHeader from "./components/header/MyHeader.vue";
 import { computed } from "vue";
 import { useAutoUpdateStore } from "./store/AutoUpdateStore";
 import popUpWindow from "./components/UI/popUpWindow.vue";
+
 
 const store = useAutoUpdateStore();
 

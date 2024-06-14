@@ -4,7 +4,7 @@ import allApiFunctions from "@/API/valueService";
 import { sortCurrenciesByDateUp } from "@/helpers/copyInfoAboutCurrence";
 
 export const useValueStore = defineStore('valuesStore', () => {
-  const allKeysOfCurrencies = ref([]);
+  const allKeysOfCurrencies = ref(JSON.parse(localStorage.getItem('allKeysOfCurrencies')) || []);
   const allValuesOfCurrencies = ref({});
   const allInfoAboutValues = ref([]);
 
@@ -14,16 +14,22 @@ export const useValueStore = defineStore('valuesStore', () => {
   const isCurrencyLoading = ref(false);
 
   const lastUpdateAll = ref(new Date(JSON.parse(localStorage.getItem('lastUpdateAll')) || new Date()));
+  const selectedBaseCurrency = ref(JSON.parse(localStorage.getItem('selectedBaseCurrency')) || {
+    code : '$',
+    name : 'USD'
+  });
 
   const saveToLocalStorageCurrencies = () => {
     localStorage.setItem('arrayReadyAssembleObjectWithCurrencies', JSON.stringify(arrayReadyAssembleObjectWithCurrencies.value));
     localStorage.setItem('lastUpdateAll', JSON.stringify(lastUpdateAll.value));
     localStorage.setItem('hasDataAlreadyBeenDownloaded', JSON.stringify(hasDataAlreadyBeenDownloaded.value));
+    localStorage.setItem('allKeysOfCurrencies', JSON.stringify(allKeysOfCurrencies.value));
+    localStorage.setItem('selectedBaseCurrency', JSON.stringify(selectedBaseCurrency.value));
   };
 
   const getAllValuesOfCurrencies = async () => {
     try {
-      const response = await allApiFunctions.getAllLatestValueOfCurrencies();
+      const response = await allApiFunctions.getAllLatestValueOfCurrencies(selectedBaseCurrency.value.name);
       allValuesOfCurrencies.value = response.data;
       console.log('Price ', allValuesOfCurrencies.value);
     } catch (error) {
@@ -48,7 +54,7 @@ export const useValueStore = defineStore('valuesStore', () => {
     await getAllInfoOfCurrencies();
 
     allKeysOfCurrencies.value = Object.keys(allValuesOfCurrencies.value);
-
+    console.log('keys ', allKeysOfCurrencies.value)
     arrayReadyAssembleObjectWithCurrencies.value = allKeysOfCurrencies.value.map((currencyCode) => {
       const info = allInfoAboutValues.value[currencyCode];
       const value = allValuesOfCurrencies.value[currencyCode];
@@ -65,7 +71,7 @@ export const useValueStore = defineStore('valuesStore', () => {
         console.warn(`Отсутствуют данные для валюты: ${currencyCode}`);
         return null;
       }
-    })
+    }).filter(currency => currency !== null);
 
     console.log('Полный объект =>  ', arrayReadyAssembleObjectWithCurrencies.value);
     lastUpdateAll.value = new Date();
@@ -100,7 +106,7 @@ export const useValueStore = defineStore('valuesStore', () => {
   const updateAllCurrencies = async () => {
     isCurrencyLoading.value = true;
     try {
-      const response = await allApiFunctions.getAllLatestValueOfCurrencies();
+      const response = await allApiFunctions.getAllLatestValueOfCurrencies(selectedBaseCurrency.value.name);
       const newData = response.data;
 
       arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
@@ -113,7 +119,7 @@ export const useValueStore = defineStore('valuesStore', () => {
 
       lastUpdateAll.value = new Date();
 
-      console.log('Обнолвенные валюты => ', arrayReadyAssembleObjectWithCurrencies.value);
+      console.log('Обнолвленные валюты => ', arrayReadyAssembleObjectWithCurrencies.value);
       saveToLocalStorageCurrencies();
     } catch (error) {
       console.error('Ошибка обнолвения:', error);
@@ -137,7 +143,16 @@ export const useValueStore = defineStore('valuesStore', () => {
     saveToLocalStorageCurrencies();
   };
 
-  watch(arrayReadyAssembleObjectWithCurrencies, () => {
+  const setSelectedBaseCurrency = () => {
+    localStorage.setItem('selectedBaseCurrency', JSON.stringify(selectedBaseCurrency.value));
+    updateAllCurrencies()
+  };
+
+  watch([selectedBaseCurrency], () => {
+    setSelectedBaseCurrency();
+  });
+
+  watch([arrayReadyAssembleObjectWithCurrencies], () => {
     saveToLocalStorageCurrencies();
   }, { deep: true });
 
@@ -160,6 +175,8 @@ export const useValueStore = defineStore('valuesStore', () => {
     isCurrencyLoading,
     lastUpdateAll,
     selectCurrenciesInSettings,
-    updateAllCurrencies
+    updateAllCurrencies,
+    selectedBaseCurrency,
+    setSelectedBaseCurrency
   };
 });

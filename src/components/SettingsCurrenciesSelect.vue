@@ -2,21 +2,21 @@
   <div class="container">
     <div class="list__values" v-if="!isLoading">
       <div
-        v-for="(currency, index) in allCurrence"
+        v-for="(currency, index) in allCurrencies"
         :key="index"
         :class="{ inactive: !currency.isActive }"
+        class="item"
+        @click="handleCurrencyClick(currency)"
       >
-        <div class="item">
-          <div class="name">
-            <div style="color: #2979ff">{{ currency.code }}</div>
-            <div>{{ currency.name }}</div>
-          </div>
-          <div class="select">
-            <my-radio-checkbox 
-              v-model="currency.isActive" 
-              @update:modelValue="(status) => helperSelect(currency.name, status)" 
-            />
-          </div>
+        <div class="name">
+          <div style="color: #2979ff">{{ currency.code }}</div>
+          <div>{{ currency.name }}</div>
+        </div>
+        <div class="select">
+          <my-radio-checkbox 
+            v-model="currency.isActive" 
+            @update:modelValue="(status) => helperSelect(currency.name, status)" 
+          />
         </div>
       </div>
     </div>
@@ -34,13 +34,18 @@ import MyLoader from "./UI/MyLoader.vue";
 
 const store = useValueStore();
 
-const isLoading = computed(() => store.isCurrencuesLoading);
-const allCurrence = computed(() => store.arrayReadyAssembleObjectWithCurrencies);
+const isLoading = computed(() => store.isCurrenciesLoading);
+const allCurrencies = computed(() => store.arrayReadyAssembleObjectWithCurrencies);
 
 const setSettings = store.selectCurrenciesInSettings;
 
 const helperSelect = (name, status) => {
   setSettings(name, status);
+};
+
+const handleCurrencyClick = (currency) => {
+  const newStatus = !currency.isActive;
+  helperSelect(currency.name, newStatus);
 };
 </script>
 
@@ -73,13 +78,13 @@ const helperSelect = (name, status) => {
   justify-content: space-between;
   padding: 0 30px;
   margin-bottom: 10px;
+  cursor: pointer; /* Добавляем указатель при наведении */
 }
 
 .name {
   display: flex;
   align-items: center;
   font-weight: 600;
-  
 }
 
 .name > div {

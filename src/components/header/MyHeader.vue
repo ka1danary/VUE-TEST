@@ -20,6 +20,7 @@
         <div @click="helperReload">
           <my-button-reload />
         </div>
+        
       </div>
     </div>
   </div>
@@ -30,8 +31,10 @@ import { useValueStore } from "@/store/ValuesStore";
 import { useHeaderStore } from "@/store/HeaderStore";
 import MyRouteButton from "../UI/buttons/MyRouteButton.vue";
 import LastUpdateField from "../UI/LastUpdateField.vue";
+import MyLoader from "../UI/MyLoader.vue";
 
 import './MyHeader.css'
+import { computed } from "vue";
 
 const headerStore = useHeaderStore();
 const valueStore = useValueStore();
@@ -39,6 +42,8 @@ const valueStore = useValueStore();
 const helperReload = async () => {
   await valueStore.updateAllCurrencies();
 };
+
+
 </script>
 
 <style scoped>
@@ -65,6 +70,13 @@ const helperReload = async () => {
   justify-content: right;
   width: 350px;
   margin-right: 10px;
+}
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 70px;
 }
 
 </style>

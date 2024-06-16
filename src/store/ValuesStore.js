@@ -87,7 +87,7 @@ export const useValueStore = defineStore('valuesStore', () => {
       const newValue = response.data[name];
 
       arrayReadyAssembleObjectWithCurrencies.value = arrayReadyAssembleObjectWithCurrencies.value.map(currency => {
-        
+
         if (currency.name === name) {
           return {
             ...currency,

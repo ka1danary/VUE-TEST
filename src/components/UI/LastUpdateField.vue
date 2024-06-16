@@ -1,26 +1,29 @@
 <template>
   <div class="last__update__field">
     <div class="update__title">Последнее обновление:</div>
-    <div class="last__update_field__time">{{ parsedDate.day }}.{{ parsedDate.month }} {{ parsedDate.hours }}:{{ parsedDate.minutes }}</div>
+    <div class="last__update_field__time">
+      <div style="margin-right: 15px">
+        {{ parsedDate.day }}.{{ parsedDate.month }}
+      </div>
+      <div>{{ parsedDate.hours }}:{{ parsedDate.minutes }}</div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { defineProps } from "vue";
-import { parseDate } from "@/helpers/copyInfoAboutCurrence";
+import { parseDate } from "@/helpers/helperFunction";
 import { computed } from "vue";
 
 const props = defineProps({
   date: {
     type: String,
-    default : '123'
-  }
+    default: "123",
+  },
 });
-
 const parsedDate = computed(() => {
   return parseDate(props.date);
 });
-
 </script>
 
 <style scoped>
@@ -31,7 +34,6 @@ const parsedDate = computed(() => {
 .update__title {
   color: white;
   font-weight: 600;
-  width: 200px;
   font-size: 16px;
 }
 .last__update_field__time {

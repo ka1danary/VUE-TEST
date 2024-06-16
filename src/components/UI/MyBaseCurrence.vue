@@ -1,28 +1,26 @@
 <template>
   <div class="container">
-    <div  v-if="!isLoading" class="content">
-      <div class="name__container">
-        <div class="icon" style="color: #2979ff">
-          <strong>
-            {{ baseCurrency.code }}
-          </strong>
-        </div>
-        <div class="name" style="">
-          <strong>
-            {{ baseCurrency.name }}
-          </strong>
+    <div v-if="!isLoading" class="content">
+      <div class="item">
+        <div class="name">
+          <div class="icon" style="color: #2979ff">
+            <strong>{{ baseCurrency.code }}</strong>
+          </div>
+          <div style="">
+            <strong>{{ baseCurrency.name }}</strong>
+          </div>
         </div>
       </div>
-      <div class="price" style="">
+      <div class="item" style="">
         <strong>1</strong>
       </div>
     </div>
     <div v-else class="loader">
-        <my-loader/>
+      <my-loader />
     </div>
-    
   </div>
 </template>
+
 <script setup>
 import { computed } from "vue";
 import { useValueStore } from "../../store/ValuesStore";
@@ -33,6 +31,7 @@ const valueStore = useValueStore();
 const baseCurrency = computed(() => valueStore.selectedBaseCurrency);
 const isLoading = computed(() => valueStore.isCurrencyLoading);
 </script>
+
 <style scoped>
 .container {
   background: white;
@@ -41,33 +40,57 @@ const isLoading = computed(() => valueStore.isCurrencyLoading);
   color: #121212;
   border-radius: 20px;
   box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
-  padding: 0 30px;
   margin: 10px 0;
-  
 }
 .content {
-display: flex;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  align-items: center;
-  height: 48px;
 }
-.name__container {
+
+.item {
   display: flex;
-  width: 100px;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100px;
+  height: 40px;
 }
-.icon {
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.name {
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
 }
-.price {
+
+@media (max-width: 767px) {
+  .container {
+    height: 80px;
+  }
+  .content {
+    height: 76px;
+  }
+  .loader {
+    height: 76px;
+  }
+  .name {
+    flex-direction: column;
+    width: 10vw;
+  }
+  .item {
+    height: 76px;
+  }
 }
-.loader{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 48px;
-}
+
 </style>

@@ -1,26 +1,32 @@
 <template>
   <div class="header">
     <div class="header__container">
-      <div class="header__left__menu">
-        <router-link to="/">
-          <div @click="headerStore.setStateTrueForHome">
-            <my-route-button typeIcon="home" :status="headerStore.homeIcon" />
-          </div>
-        </router-link>
-        <router-link to="/settings">
-          <my-route-button
-            typeIcon="settings"
-            :status="headerStore.settingsIcon"
-            @click="headerStore.setStateTrueForSettings"
-          />
-        </router-link>
+      <div class="menu">
+        <div class="drop__menu">
+          <my-drop-menu />
+        </div>
+        <div class="header__left__menu">
+          <router-link to="/">
+            <div @click="headerStore.setStateTrueForHome">
+              <my-route-button typeIcon="home" :status="homeIcon" />
+            </div>
+          </router-link>
+          <router-link to="/settings">
+            <my-route-button
+              typeIcon="settings"
+              :status="settingsIcon"
+              @click="headerStore.setStateTrueForSettings"
+            />
+          </router-link>
+        </div>
       </div>
       <div class="header__right__menu">
-        <last-update-field :date="valueStore.lastUpdateAll" />
+        <div class="last__update__field">
+          <last-update-field :date="valueStore.lastUpdateAll" />
+        </div>
         <div @click="helperReload">
           <my-button-reload />
         </div>
-        
       </div>
     </div>
   </div>
@@ -31,52 +37,67 @@ import { useValueStore } from "@/store/ValuesStore";
 import { useHeaderStore } from "@/store/HeaderStore";
 import MyRouteButton from "../UI/buttons/MyRouteButton.vue";
 import LastUpdateField from "../UI/LastUpdateField.vue";
-import MyLoader from "../UI/MyLoader.vue";
+import MyDropMenu from "./MyDropMenu.vue";
 
-import './MyHeader.css'
+import "./MyHeader.css";
 import { computed } from "vue";
 
 const headerStore = useHeaderStore();
 const valueStore = useValueStore();
 
+const homeIcon = computed(() => headerStore.homeIcon);
+const settingsIcon = computed(() => headerStore.settingsIcon);
+
 const helperReload = async () => {
   await valueStore.updateAllCurrencies();
 };
-
-
 </script>
-
 <style scoped>
 .header {
-  width: 100vw;
+  width: 100%;
   height: 60px;
   background: #0096d5;
   user-select: none;
+  position: fixed;
+  top: 0;
+  z-index: 200;
 }
 .header__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 10px;
 }
-.header__left__menu {
-  display: flex;
-  justify-content: space-around;
-  width: 150px;
-  margin-left: 20px;
-}
-
-.header__right__menu {
-  display: flex;
-  justify-content: right;
-  width: 350px;
-  margin-right: 10px;
-}
-.loader {
+.menu {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 60px;
-  width: 70px;
+}
+.header__left__menu,
+.header__right__menu {
+  display: flex;
+  align-items: center;
+}
+.drop__menu {
+  display: none;
 }
 
+@media (max-width: 991px) {
+  .header__left__menu {
+    display: none;
+  }
+  .drop__menu {
+    display: block;
+  }
+  .last__update__field {
+    display: none;
+  }
+}
+@media (min-width: 992px) {
+  .drop__menu {
+    display: none;
+  }
+  .header__left__menu {
+    display: flex;
+  }
+}
 </style>

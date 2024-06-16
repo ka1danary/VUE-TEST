@@ -1,20 +1,23 @@
 <template>
   <div class="container">
     <div class="auto__update__mode">
-      Автоматическое обновление данных
-      <my-custom-checkbox style="margin-left: 30px" v-model="autoUpdateMode" />
+      <div>Автоматическое обновление данных</div>
+      <div class="checkbox__container">
+        <my-custom-checkbox v-model="autoUpdateMode" />
+      </div>
     </div>
     <div class="frequency__user__field" :class="{ disable: !autoUpdateMode }">
-      <div>Частота обновления:</div>
-      <input
-        style="margin-left: 30px"
-        class="time__field"
-        v-model="frequency"
-        @input="handleInput"
-        :disabled="!autoUpdateMode"
-        maxlength="4"
-      />
-      <div style="margin-left: 30px">мин.</div>
+      <div class="text">Частота обновления:</div>
+      <div class="time__container">
+        <input
+          class="time__field"
+          v-model="frequency"
+          @input="handleInput"
+          :disabled="!autoUpdateMode"
+          maxlength="4"
+        />
+        <div style="margin-left: 30px">мин.</div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,8 +38,10 @@ const frequency = computed({
   get: () => updateStore.frequencyUpdateValue,
   set: (value) => {
     const sanitizedValue = parseInt(value, 10);
-    updateStore.frequencyUpdateValue = isNaN(sanitizedValue) ? 0 : sanitizedValue;
-  }
+    updateStore.frequencyUpdateValue = isNaN(sanitizedValue)
+      ? 0
+      : sanitizedValue;
+  },
 });
 
 const handleInput = (event) => {
@@ -51,18 +56,22 @@ const handleInput = (event) => {
   box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
   background: rgb(255, 255, 255);
   padding: 30px;
+  display: grid;
 }
 .auto__update__mode {
   display: flex;
   align-items: center;
-  height: 40px;
+  min-height: 50px;
   font-size: 1.3em;
   font-weight: 600;
+  margin-bottom: 10px;
 }
-
+.checkbox__container {
+  margin-left: 30px;
+}
 .frequency__user__field {
   display: flex;
-  height: 40px;
+  min-height: 40px;
   align-items: center;
 }
 
@@ -80,15 +89,41 @@ const handleInput = (event) => {
   font-size: 1em;
   border: 1px solid transparent;
   transition: border-color 0.3s ease;
+  margin-left : 20px;
 }
-
+.time__container {
+  display: flex;
+}
 .time__field:focus {
   border-color: #a4c4d1;
 }
-
 .disable {
   opacity: 0.4;
   pointer-events: none;
   user-select: none;
+}
+
+@media (max-width: 350px) {
+  .auto__update__mode {
+    display: grid;
+    margin-bottom: 10px;
+  }
+  .checkbox__container {
+    margin: 10px 0;
+  }
+  
+}
+@media (max-width : 349px) {
+  .frequency__user__field {
+    display: grid;
+    margin: 10px 0px;
+  }
+  .text {
+    margin-bottom: 10px;
+  }
+  .time__field {
+    padding: 0;
+    margin : 0;
+  }
 }
 </style>

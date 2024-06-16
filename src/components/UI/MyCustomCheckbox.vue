@@ -1,6 +1,6 @@
 <template>
   <div class="toggle__switch" @click="toggle">
-    <div class="toggle__circle" :class="{ 'toggle__on': isChecked }"></div>
+    <div class="toggle__circle" :class="{ toggle__on: isChecked }"></div>
   </div>
 </template>
 
@@ -29,18 +29,14 @@ const toggle = () => {
   isChecked.value = !isChecked.value;
   emit("update:modelValue", isChecked.value);
 };
-
 </script>
 
 <style scoped>
 .toggle__switch {
   width: 55px;
-  height: 30px;
   background: #e9eef1;
   border-radius: 30px;
   border: 1px solid #e4e4e4;
-  display: flex;
-  align-items: center;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -55,6 +51,5 @@ const toggle = () => {
 .toggle__on {
   transform: translateX(25px);
   background: #0096d5;
-  
 }
 </style>

@@ -21,7 +21,7 @@ const allApiFunctions = {
     return axios.get(URL_CURRENCIES)
       .then((response) => response.data)
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         throw error;
       });
   },

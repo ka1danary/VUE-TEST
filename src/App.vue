@@ -1,14 +1,12 @@
 <template>
   <div class="main">
     <MyHeader />
-    
     <div class="content">
-      <div v-if="store.alertStatus">
-        <pop-up-window />
+      <div v-if="alertWindow" class="alert">
+        <pop-up-window/>
       </div>
       <router-view />
     </div>
-    
   </div>
 </template>
 
@@ -24,14 +22,23 @@ const store = useAutoUpdateStore();
 const alertWindow = computed({
   get: () => store.alertStatus,
 });
+
 </script>
 
 <style scoped>
 .content {
-  width: 100vh;
   margin-top: 20px;
 }
 .title {
   font-size: 2em;
 }
+
+
+@media (max-width : 428px){
+    .alert {
+      display: none;
+    }
+}
+  
+
 </style>

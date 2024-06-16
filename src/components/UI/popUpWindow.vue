@@ -19,7 +19,7 @@
 <script setup>
 import { useAutoUpdateStore } from '@/store/AutoUpdateStore';
 import { useValueStore } from '@/store/ValuesStore';
-import { calculateDate, parseDate } from '@/helpers/copyInfoAboutCurrence';
+import { calculateDate, parseDate } from '@/helpers/helperFunction';
 import { computed } from 'vue';
 
 const autoUpdateStore = useAutoUpdateStore();
@@ -60,6 +60,7 @@ const nextUpdateParse = computed(() => {
   position: absolute;
   top: 70px;
   left: 30px;
+  z-index: 99;
 }
 
 .alert__text__container {

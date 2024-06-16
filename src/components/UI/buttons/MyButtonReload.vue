@@ -34,7 +34,6 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
 .button {
   transition: background-color 0.3s ease;
   border-radius: 5px;
@@ -43,7 +42,6 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
 .button:hover {
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 10px;

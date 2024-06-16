@@ -1,18 +1,17 @@
 
+// Копирование объекта в буфер обмена
 export const copyCurrence = async (currenceObject) => {
-
     const convertToJson = JSON.stringify(currenceObject);
-
     try {
         await navigator.clipboard.writeText(convertToJson);
-        console.log('Copied to clipboard:', convertToJson);
+        console.log(convertToJson);
     } catch (error) {
-        console.error('Error copying to clipboard:', error);
+        console.error(error);
         throw error;
     }
 };
 
-
+// Возвращает дату в удобном формате
 export const parseDate = (date) => {
     const dateObject = new Date(date);
     const day = dateObject.getDate().toString().padStart(2, '0');
@@ -32,6 +31,7 @@ export const parseDate = (date) => {
     }
 }
 
+// Сортировки
 export const sortCurrenciesByDateUp = (currenciesArray) => {
     return currenciesArray.sort((a, b) => a.value > b.value ? 1 : -1)
 }
@@ -40,10 +40,14 @@ export const sortCurrenciesByDateDown = (currenciesArray) => {
     return currenciesArray.sort((a, b) => a.value < b.value ? 1 : -1)
 }
 
+// Для отслеживания времени следующего обновления
 export const calculateDate = (dateString, minutes) => {
-
     const date = new Date(dateString);
-
     date.setMinutes(date.getMinutes() + minutes);
     return date.toISOString();
 }
+
+// Удаление ненужного поля из объекта, для функции копирования
+export const excludeField = (arr, field) => {
+    return arr.value.map(({ [field]: _, ...rest }) => rest);
+};

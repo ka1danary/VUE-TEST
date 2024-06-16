@@ -4,7 +4,7 @@
       <div class="base__currencie"><value-list-title /></div>
       <div class="value__container">
         <div class="value__list" v-if="!loadingCurrenceInfo">
-          <my-base-currency/>
+          <my-base-currency />
           <div v-for="(currence, index) in allCurrence" :key="index">
             <div v-if="currence.isActive && currence.name != baseCurrency.name">
               <value-field
@@ -30,7 +30,7 @@ import ValueListTitle from "@/components/UI/ValueListTitle.vue";
 import ValueField from "@/components/UI/ValueField.vue";
 import { useValueStore } from "@/store/ValuesStore";
 import MyLoader from "@/components/UI/MyLoader.vue";
-import MyBaseCurrency from '@/components/UI/MyBaseCurrence.vue'
+import MyBaseCurrency from "@/components/UI/MyBaseCurrence.vue";
 
 const store = useValueStore();
 
@@ -38,9 +38,7 @@ const loadingCurrenceInfo = computed(() => store.isCurrenciesLoading);
 const allCurrence = computed(
   () => store.arrayReadyAssembleObjectWithCurrencies
 );
-const baseCurrency = computed(
-  () => store.selectedBaseCurrency
-)
+const baseCurrency = computed(() => store.selectedBaseCurrency);
 </script>
 
 <style scoped>
@@ -53,7 +51,7 @@ const baseCurrency = computed(
   justify-content: center;
 }
 .value__list {
-  height: 500px;
+  height: 60vh;
   padding: 30px;
   width: 100vw;
   overflow-y: scroll;
@@ -69,12 +67,21 @@ const baseCurrency = computed(
   background: rgb(89, 187, 228);
 }
 .loading {
-  height: 500px;
+  height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .base__currencie {
   position: sticky;
+}
+
+@media (max-width: 767px) {
+  .value__list {
+    height: 50vh;
+  }
+  .loading {
+    height: 50vh;
+  }
 }
 </style>

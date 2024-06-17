@@ -55,7 +55,7 @@ const toggleCurrency = (currency) => {
 <style scoped>
 .container {
   background: rgb(234, 239, 241);
-  height: 400px;
+  height: 350px;
   box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
   padding: 30px;
   overflow-y: scroll;
@@ -80,7 +80,7 @@ const toggleCurrency = (currency) => {
   font-weight: 600;
 }
 
-.name > div {
+.name {
   margin-right: 10px;
   width: 60px;
   display: flex;

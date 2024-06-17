@@ -26,9 +26,9 @@
 
 <script setup>
 import { computed } from "vue";
+import { useValueStore } from "@/store/ValuesStore";
 import ValueListTitle from "@/components/UI/ValueListTitle.vue";
 import ValueField from "@/components/UI/ValueField.vue";
-import { useValueStore } from "@/store/ValuesStore";
 import MyLoader from "@/components/UI/MyLoader.vue";
 import MyBaseCurrency from "@/components/UI/MyBaseCurrence.vue";
 

@@ -27,9 +27,10 @@
 </template>
 
 <script setup>
-import MyRadioCheckbox from "./UI/MyRadioCheckbox.vue";
 import { computed } from "vue";
 import { useValueStore } from "@/store/ValuesStore";
+
+import MyRadioCheckbox from "./UI/MyRadioCheckbox.vue";
 import MyLoader from "./UI/MyLoader.vue";
 
 const store = useValueStore();

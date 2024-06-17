@@ -18,8 +18,9 @@
 </template>
 
 <script setup>
-import { useLanguageStore } from "@/store/LanguageStore";
 import { computed } from "vue";
+import { useLanguageStore } from "@/store/LanguageStore";
+
 
 const languageStore = useLanguageStore();
 const locale = computed(() => languageStore.locale);

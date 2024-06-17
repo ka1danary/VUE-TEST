@@ -1,11 +1,11 @@
 import { createApp, watch, computed } from 'vue';
-import App from '@/App.vue';
-import router from '@/router/router';
 import { createPinia } from 'pinia';
-import components from '@/components/UI/index.js';
-import { useLanguageStore } from '@/store/LanguageStore';
 import { createI18n } from 'vue-i18n';
 
+import App from '@/App.vue';
+import router from '@/router/router';
+import components from '@/components/UI/index.js';
+import { useLanguageStore } from '@/store/LanguageStore';
 
 import ru from '@/i18n/locale/ru.json';
 import en from '@/i18n/locale/en.json';

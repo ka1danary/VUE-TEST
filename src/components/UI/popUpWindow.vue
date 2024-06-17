@@ -24,10 +24,11 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { useAutoUpdateStore } from "@/store/AutoUpdateStore";
 import { useValueStore } from "@/store/ValuesStore";
 import { calculateDate, parseDate } from "@/helpers/helperFunction";
-import { computed } from "vue";
+
 
 const autoUpdateStore = useAutoUpdateStore();
 const valueStore = useValueStore();

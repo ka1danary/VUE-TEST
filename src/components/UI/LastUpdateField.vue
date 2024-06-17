@@ -11,9 +11,10 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { defineProps } from "vue";
 import { parseDate } from "@/helpers/helperFunction";
-import { computed } from "vue";
+
 
 const props = defineProps({
   date: {

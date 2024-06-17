@@ -38,19 +38,14 @@
   </div>
 </template>
 <script setup>
-import "./pages.css";
+
 import SettingsTime from "@/components/SettingsTime.vue";
 import SettingsCurrenciesSelect from "@/components/SettingsCurrenciesSelect.vue";
 import MySelectedBaseCurrency from "@/components/MySelectBaseCurrency.vue";
 import MySelectorLanguage from "@/components/UI/MySelectorLanguage.vue";
+import "./pages.css";
 
-name: "settings-page";
 
-const selectCurrency = (currency) => {
-  valueStore.selectedBaseCurrency = currency;
-  console.log(currency);
-  isOpen.value = false;
-};
 </script>
 <style scoped>
 .text__block {

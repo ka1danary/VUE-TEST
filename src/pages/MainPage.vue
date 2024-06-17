@@ -15,7 +15,8 @@
 </template>
 <script setup>
 import ValueMainTable from "@/components/ValMainTable.vue";
-import "./pages.css";
 import MyButtonCopyAll from "@/components/UI/buttons/MybuttonCopyAll.vue";
+import "./pages.css";
+
 </script>
 <style scoped></style>

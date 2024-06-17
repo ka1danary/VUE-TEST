@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
-import MyHeader from "./components/header/MyHeader.vue";
 import { computed } from "vue";
 import { useAutoUpdateStore } from "./store/AutoUpdateStore";
+
+import MyHeader from "./components/header/MyHeader.vue";
 import popUpWindow from "./components/UI/popUpWindow.vue";
 
 const store = useAutoUpdateStore();

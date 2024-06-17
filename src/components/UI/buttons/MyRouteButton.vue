@@ -20,8 +20,8 @@
 </template>
 
 <script setup>
-import "./btn.style.css";
 import { defineProps } from "vue";
+import "./btn.style.css";
 
 const props = defineProps({
   typeIcon: String,

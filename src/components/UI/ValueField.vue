@@ -3,12 +3,8 @@
     <div class="container__field" v-if="!loading">
       <div class="name__container">
         <div class="item__name">
-          <div class="icon">
-            <strong> {{ icon }}</strong>
-          </div>
-          <div class="text">
-            <strong>{{ name }}</strong>
-          </div>
+          <div class="icon">{{ icon }}</div>
+          <div class="text">{{ name }}</div>
         </div>
       </div>
       <div class="item">{{ value }}</div>
@@ -22,16 +18,15 @@
           alt="reload"
           class="button"
           @click="helperUpdate(name)"
-          style="margin-right: 15px"
         />
         <img
+          v-if="!copy"
           src="../../icons/copy/content-copy-off.svg"
           alt="copy"
           class="button"
           @click="helperCopy"
-          v-if="!copy"
         />
-        <img src="../../icons/copy/check.svg" alt="copyCheck" v-else />
+        <img v-else src="../../icons/copy/check.svg" alt="copyCheck" />
       </div>
     </div>
     <div v-else class="loader">
@@ -41,7 +36,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, ref } from "vue";
+import { defineProps, ref } from "vue";
 import { useValueStore } from "@/store/ValuesStore";
 import { copyCurrence, parseDate } from "@/helpers/helperFunction";
 
@@ -81,13 +76,13 @@ const helperCopy = () => {
   }, 2000);
 };
 
-const parsedDate = computed(() => parseDate(props.date));
+const parsedDate = parseDate(props.date);
 </script>
 
 <style scoped>
 .field {
   background: white;
-  height: 48px;
+  min-height: 48px;
   color: #121212;
   border-radius: 20px;
   box-shadow: 0px 4px 20px 0px rgb(210, 219, 222);
@@ -97,26 +92,14 @@ const parsedDate = computed(() => parseDate(props.date));
 .container__field {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  height: 48px;
-}
-
-img {
-  cursor: pointer;
-}
-.date {
-  margin-right: 20px;
-}
-
-.right__field_btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
+  min-height: 48px;
+  padding: 0 10px;
 }
 
 .icon {
   color: #2979ff;
 }
+
 .name__container {
   display: flex;
   align-items: center;
@@ -129,15 +112,36 @@ img {
   width: 100px;
   justify-content: space-between;
 }
+
 .item_date {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.8em;
 }
+
 .item {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.right__field_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.button {
+  transition: background-color 0.2s ease;
+  border-radius: 10px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #eaeff1;
 }
 
 .loader {
@@ -147,66 +151,26 @@ img {
   height: 48px;
 }
 
-.button {
-  transition: background-color 0.2s ease;
-  border-radius: 10px;
-}
-
-.button:hover {
-  background-color: #eaeff1;
-  border-radius: 10px;
-}
-
-@media (max-width: 485px) {
-  .container__field {
-    padding: 0 10px;
-  }
-  .name__container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .item__name {
-    display: flex;
-    align-items: center;
-    width: 10vw;
-    justify-content: space-between;
-    padding: 5px 0px;
-  }
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    word-break: break-all;
-    padding: 0px 5px;
-  }
-}
-
 @media (max-width: 767px) {
   .field {
-    height: 80px;
+    min-height: 80px;
   }
   .container__field {
-    height: 80px;
+    min-height: 80px;
   }
   .loader {
-    height: 80px;
+    min-height: 80px;
   }
   .item__name {
-    display: flex;
+    width: 10vw;
     flex-direction: column;
     align-items: center;
-    width: 10vw;
     justify-content: space-between;
   }
   .item_date {
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  .date {
-    margin-right: 0;
   }
 }
 </style>

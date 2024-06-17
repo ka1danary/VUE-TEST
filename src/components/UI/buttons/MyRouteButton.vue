@@ -28,7 +28,7 @@ const props = defineProps({
   status: {
     type: Boolean,
     required: true,
-  }
+  },
 });
 </script>
 

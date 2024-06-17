@@ -2,19 +2,28 @@
   <div class="page__container">
     <div class="page__content">
       <div class="title_page">
-        <div class="title">Настройки</div>
+        <div class="title">{{ $t("settingsPage.settingsTitle") }}</div>
       </div>
-      <div class="select__cur__container">
-        <div  class="text__block" style="margin-right: 15px">
-          Выберите базовую валюту
+      <div class="select__locale">
+        <div class="text__block" style="margin-right: 20px">
+          {{ $t("settingsPage.chodeLanguageTitle") }}
         </div>
         <div>
-          <my-selected-base-currency/>
+          <my-selector-language />
+        </div>
+        <div></div>
+      </div>
+      <div class="select__cur__container">
+        <div class="text__block" style="margin-right: 20px">
+          {{ $t("settingsPage.baseValueTitle") }}
+        </div>
+        <div>
+          <my-selected-base-currency />
         </div>
       </div>
       <div>
         <div class="text__block">
-          Вы можете добавить или отключить определенные валюты для отслеживания
+          {{ $t("settingsPage.selectedCurrenciesTitle") }}
         </div>
         <div style="margin-bottom: 30px">
           <settings-currencies-select />
@@ -24,12 +33,6 @@
         <div>
           <settings-time />
         </div>
-        <!-- <div class="btns">
-          <router-link to="/" style="text-decoration: none;">
-            <my-custom-type-button widthButton="200px" typeButton="reject" @click="store.setStateTrueForHome"/>
-          </router-link>
-          <my-custom-type-button widthButton="200px" />
-        </div> -->
       </div>
     </div>
   </div>
@@ -38,15 +41,16 @@
 import "./pages.css";
 import SettingsTime from "@/components/SettingsTime.vue";
 import SettingsCurrenciesSelect from "@/components/SettingsCurrenciesSelect.vue";
-// import MyCustomTypeButton from "@/components/UI/buttons/MyCustomTypeButton.vue";
-// import { ref } from "vue";
-import { useHeaderStore } from "@/store/HeaderStore";
-import MySelectedBaseCurrency from '@/components/MySelectBaseCurrency.vue'
+import MySelectedBaseCurrency from "@/components/MySelectBaseCurrency.vue";
+import MySelectorLanguage from "@/components/UI/MySelectorLanguage.vue";
 
 name: "settings-page";
 
-const store = useHeaderStore()
-
+const selectCurrency = (currency) => {
+  valueStore.selectedBaseCurrency = currency;
+  console.log(currency);
+  isOpen.value = false;
+};
 </script>
 <style scoped>
 .text__block {
@@ -60,14 +64,22 @@ const store = useHeaderStore()
   justify-content: space-between;
   height: 100px;
 }
-
-.select__cur__container{
+.select__locale {
   display: flex;
   align-items: center;
-  display: flex;
-  align-items: center;
-  
-  
+  min-height: 80px;
   border-bottom: 1px solid #d2dbde;
+}
+.select__cur__container {
+  display: flex;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #d2dbde;
+}
+@media (max-width: 320px) {
+  .select__locale {
+    display: block;
+  }
 }
 </style>

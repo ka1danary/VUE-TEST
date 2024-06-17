@@ -1,7 +1,7 @@
 <template>
   <div class="container" @click="handleCopy">
     <div class="icon" v-if="!isCopy">
-      <img src="../../../icons/copy/content-copy-on.svg" alt="copy_on" />
+      <img src="../../../icons/copy/content-copy-on.svg" alt="copy_all" />
     </div>
     <div v-else>
       <img src="../../../icons/copy/check.svg" alt="" />

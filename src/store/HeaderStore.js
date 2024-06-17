@@ -18,7 +18,6 @@ export const useHeaderStore = defineStore('headerStore', () => {
             }
         }
     };
-
     const setStateTrueForHome = () => {
         homeIcon.value = true;
         settingsIcon.value = false;

@@ -3,9 +3,11 @@
     <MyHeader />
     <div class="content">
       <div v-if="alertWindow" class="alert">
-        <pop-up-window/>
+        <pop-up-window />
       </div>
-      <router-view />
+      <transition name="fade" appear>
+        <router-view />
+      </transition>
     </div>
   </div>
 </template>
@@ -16,13 +18,11 @@ import { computed } from "vue";
 import { useAutoUpdateStore } from "./store/AutoUpdateStore";
 import popUpWindow from "./components/UI/popUpWindow.vue";
 
-
 const store = useAutoUpdateStore();
 
 const alertWindow = computed({
   get: () => store.alertStatus,
 });
-
 </script>
 
 <style scoped>
@@ -32,13 +32,19 @@ const alertWindow = computed({
 .title {
   font-size: 2em;
 }
-
-
-@media (max-width : 428px){
-    .alert {
-      display: none;
-    }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.7s ease;
 }
-  
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+@media (max-width: 428px) {
+  .alert {
+    display: none;
+  }
+}
 </style>

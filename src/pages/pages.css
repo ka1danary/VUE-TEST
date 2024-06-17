@@ -1,11 +1,10 @@
 .page__container {
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100vw;
-  overflow: hidden;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  height: auto;
 }
 .title_page {
   height: 80px;

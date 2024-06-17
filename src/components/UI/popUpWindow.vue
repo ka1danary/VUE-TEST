@@ -3,11 +3,18 @@
     <div class="container">
       <div class="alert__text__container">
         <div>
-          <strong>{{ parseDateAlert.day }}.{{ parseDateAlert.month }} {{ parseDateAlert.hours }}:{{ parseDateAlert.minutes }}</strong>
+          <strong
+            >{{ parseDateAlert.day }}.{{ parseDateAlert.month }}
+            {{ parseDateAlert.hours }}:{{ parseDateAlert.minutes }}</strong
+          >
         </div>
-        <div class="text">Автоматическое обновление данных</div>
+        <div class="text">{{ $t("autoUpdatePopUp.title") }}</div>
         <br />
-        <div class="text">Следующее обновление в {{ nextUpdateParse.hours }}:{{ nextUpdateParse.minutes }}</div>
+        <div class="text">
+          {{ $t("autoUpdatePopUp.nextUpdate") }} {{ nextUpdateParse.hours }}:{{
+            nextUpdateParse.minutes
+          }}
+        </div>
       </div>
       <div class="alert__bottom">
         <button @click="helperClose">Ok</button>
@@ -17,10 +24,10 @@
 </template>
 
 <script setup>
-import { useAutoUpdateStore } from '@/store/AutoUpdateStore';
-import { useValueStore } from '@/store/ValuesStore';
-import { calculateDate, parseDate } from '@/helpers/helperFunction';
-import { computed } from 'vue';
+import { useAutoUpdateStore } from "@/store/AutoUpdateStore";
+import { useValueStore } from "@/store/ValuesStore";
+import { calculateDate, parseDate } from "@/helpers/helperFunction";
+import { computed } from "vue";
 
 const autoUpdateStore = useAutoUpdateStore();
 const valueStore = useValueStore();
@@ -87,5 +94,4 @@ const nextUpdateParse = computed(() => {
   color: #0096d5;
   font-size: 1.3em;
 }
-
 </style>

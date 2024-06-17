@@ -5,20 +5,18 @@
         v-for="(currency, index) in allCurrence"
         :key="index"
         :class="{ inactive: !currency.isActive }"
+        class="item"
+        @click="toggleCurrency(currency)"
       >
-        <div class="item">
-          <div class="name">
-            <div style="color: #2979ff" class="icon">{{ currency.code }}</div>
-            <div>{{ currency.name }}</div>
-          </div>
-          <div class="select">
-            <my-radio-checkbox
-              v-model="currency.isActive"
-              @update:modelValue="
-                (status) => helperSelect(currency.name, status)
-              "
-            />
-          </div>
+        <div class="name">
+          <div style="color: #2979ff" class="icon">{{ currency.code }}</div>
+          <div>{{ currency.name }}</div>
+        </div>
+        <div class="select" @click.stop>
+          <my-radio-checkbox
+            v-model="currency.isActive"
+            @update:modelValue="(status) => helperSelect(currency.name, status)"
+          />
         </div>
       </div>
     </div>
@@ -46,6 +44,12 @@ const setSettings = store.selectCurrenciesInSettings;
 const helperSelect = (name, status) => {
   setSettings(name, status);
 };
+
+const toggleCurrency = (currency) => {
+  const newStatus = !currency.isActive;
+  currency.isActive = newStatus;
+  helperSelect(currency.name, newStatus);
+};
 </script>
 
 <style scoped>
@@ -67,6 +71,7 @@ const helperSelect = (name, status) => {
   justify-content: space-between;
   padding: 0 30px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .name {
@@ -74,6 +79,7 @@ const helperSelect = (name, status) => {
   align-items: center;
   font-weight: 600;
 }
+
 .name > div {
   margin-right: 10px;
   width: 60px;
@@ -81,25 +87,31 @@ const helperSelect = (name, status) => {
   align-items: center;
   justify-content: space-between;
 }
+
 .loading {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 400px;
 }
+
 .inactive {
   opacity: 0.5;
 }
+
 .container::-webkit-scrollbar {
   width: 15px;
 }
+
 .container::-webkit-scrollbar-track {
   background: rgb(207, 224, 233);
 }
+
 .container::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: rgb(89, 187, 228);
 }
+
 @media (max-width: 200px) {
   .item {
     flex-direction: column;
@@ -107,9 +119,11 @@ const helperSelect = (name, status) => {
     align-items: center;
     padding: 10px;
   }
+
   .name {
     align-items: center;
   }
+
   .icon {
     display: none;
   }
@@ -120,6 +134,7 @@ const helperSelect = (name, status) => {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .name > div {
     margin-right: 0;
   }
@@ -129,11 +144,10 @@ const helperSelect = (name, status) => {
   .container {
     padding: 20px;
   }
+
   .item {
     height: 80px;
     padding: 20px;
   }
 }
-
-
 </style>

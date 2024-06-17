@@ -12,11 +12,9 @@
             </div>
           </router-link>
           <router-link to="/settings">
-            <my-route-button
-              typeIcon="settings"
-              :status="settingsIcon"
-              @click="headerStore.setStateTrueForSettings"
-            />
+            <div @click="headerStore.setStateTrueForSettings">
+              <my-route-button typeIcon="settings" :status="settingsIcon" />
+            </div>
           </router-link>
         </div>
       </div>
@@ -38,8 +36,6 @@ import { useHeaderStore } from "@/store/HeaderStore";
 import MyRouteButton from "../UI/buttons/MyRouteButton.vue";
 import LastUpdateField from "../UI/LastUpdateField.vue";
 import MyDropMenu from "./MyDropMenu.vue";
-
-import "./MyHeader.css";
 import { computed } from "vue";
 
 const headerStore = useHeaderStore();
@@ -52,7 +48,12 @@ const helperReload = async () => {
   await valueStore.updateAllCurrencies();
 };
 </script>
+
 <style scoped>
+.no-scroll {
+  overflow: hidden;
+}
+
 .header {
   width: 100%;
   height: 60px;

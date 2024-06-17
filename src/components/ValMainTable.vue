@@ -76,12 +76,30 @@ const baseCurrency = computed(() => store.selectedBaseCurrency);
   position: sticky;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 349px) {
+  .value__list {
+    height: 40vh;
+  }
+  .loading {
+    height: 40vh;
+  }
+}
+
+@media (min-width: 350px) and (max-width: 449px) {
   .value__list {
     height: 50vh;
   }
   .loading {
     height: 50vh;
+  }
+}
+
+@media (min-width: 450px) and (max-width: 767px) {
+  .value__list {
+    height: 55vh;
+  }
+  .loading {
+    height: 55vh;
   }
 }
 </style>

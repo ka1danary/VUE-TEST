@@ -1,6 +1,6 @@
 <template>
   <div class="last__update__field">
-    <div class="update__title">Последнее обновление:</div>
+    <div class="update__title">{{ $t("nav.lastUpdate") }}</div>
     <div class="last__update_field__time">
       <div style="margin-right: 15px">
         {{ parsedDate.day }}.{{ parsedDate.month }}

@@ -92,5 +92,4 @@ const isLoading = computed(() => valueStore.isCurrencyLoading);
     height: 76px;
   }
 }
-
 </style>

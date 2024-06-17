@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="auto__update__mode">
-      <div>Автоматическое обновление данных</div>
+      <div>{{ $t("autoUpdate.autoUpdateTitle") }}</div>
       <div class="checkbox__container">
         <my-custom-checkbox v-model="autoUpdateMode" />
       </div>
     </div>
     <div class="frequency__user__field" :class="{ disable: !autoUpdateMode }">
-      <div class="text">Частота обновления:</div>
+      <div class="text">{{ $t("autoUpdate.frequency") }}</div>
       <div class="time__container">
         <input
           class="time__field"
@@ -16,7 +16,9 @@
           :disabled="!autoUpdateMode"
           maxlength="4"
         />
-        <div style="margin-left: 30px">мин.</div>
+        <div style="margin-left: 30px">
+          {{ $t("autoUpdate.minutes") }}
+        </div>
       </div>
     </div>
   </div>
@@ -89,7 +91,7 @@ const handleInput = (event) => {
   font-size: 1em;
   border: 1px solid transparent;
   transition: border-color 0.3s ease;
-  margin-left : 20px;
+  margin-left: 20px;
 }
 .time__container {
   display: flex;
@@ -111,9 +113,8 @@ const handleInput = (event) => {
   .checkbox__container {
     margin: 10px 0;
   }
-  
 }
-@media (max-width : 349px) {
+@media (max-width: 349px) {
   .frequency__user__field {
     display: grid;
     margin: 10px 0px;
@@ -123,7 +124,7 @@ const handleInput = (event) => {
   }
   .time__field {
     padding: 0;
-    margin : 0;
+    margin: 0;
   }
 }
 </style>
